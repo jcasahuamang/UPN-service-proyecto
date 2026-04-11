@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UniversitarioCertificado5ta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1866e32-ae46-4c3f-bc89-8e19819ee4e7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="p_logo" class="java.lang.String"/>
+	<parameter name="p_firma" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cod_empresa" class="java.lang.String"/>
+	<field name="cod_personal" class="java.lang.String"/>
+	<field name="cod_tipo_planilla" class="java.lang.String"/>
+	<field name="ano_proceso" class="java.lang.String"/>
+	<field name="c_ano_proceso" class="java.lang.Integer"/>
+	<field name="imp_tot_percibido" class="java.lang.Double"/>
+	<field name="num_uit_deducible" class="java.lang.Double"/>
+	<field name="c_imp_impuesto_anual" class="java.lang.Double"/>
+	<field name="c_des_personal" class="java.lang.String"/>
+	<field name="c_sexo_personal" class="java.lang.String"/>
+	<field name="c_retencion_cia" class="java.lang.Double"/>
+	<field name="c_retencion_cia_actual" class="java.lang.Double"/>
+	<field name="c_sum_remunera_ma" class="java.lang.Double"/>
+	<field name="c_sum_imp_retencion_ma" class="java.lang.Double"/>
+	<field name="c_sum_imp_retencion" class="java.lang.Double"/>
+	<field name="c_imp_valor_iut" class="java.lang.Double"/>
+	<field name="c_des_empresa" class="java.lang.String"/>
+	<field name="c_ruc_empresa" class="java.lang.String"/>
+	<field name="c_des_direccion" class="java.lang.String"/>
+	<field name="c_imp_percibido_liq" class="java.lang.Double"/>
+	<field name="c_imp_dev_retencion" class="java.lang.Double"/>
+	<field name="c_imp_retencion_liq" class="java.lang.Double"/>
+	<field name="c_count_qta_liq" class="java.lang.Integer"/>
+	<field name="c_nom_sucursal" class="java.lang.String"/>
+	<field name="c_num_doc_identidad" class="java.lang.String"/>
+	<field name="fec_ingreso" class="java.util.Date"/>
+	<field name="c_des_cargo" class="java.lang.String"/>
+	<field name="tope_1" class="java.lang.Double"/>
+	<field name="tope_3" class="java.lang.Double"/>
+	<field name="tope_4" class="java.lang.Double"/>
+	<field name="tope_2" class="java.lang.Double"/>
+	<field name="tope_1_letras" class="java.lang.String"/>
+	<field name="tope_3_letras" class="java.lang.String"/>
+	<field name="tope_4_letras" class="java.lang.String"/>
+	<field name="tope_1_porc" class="java.lang.String"/>
+	<field name="tope_3_porc" class="java.lang.String"/>
+	<field name="tope_4_porc" class="java.lang.String"/>
+	<field name="tope_2_letras" class="java.lang.String"/>
+	<field name="tope_2_porc" class="java.lang.String"/>
+	<field name="tope_5_letras" class="java.lang.String"/>
+	<field name="tope_5_porc" class="java.lang.String"/>
+	<field name="c_monto_1" class="java.lang.Double"/>
+	<field name="c_monto_2" class="java.lang.Double"/>
+	<field name="c_monto_3" class="java.lang.Double"/>
+	<field name="c_monto_4" class="java.lang.Double"/>
+	<field name="c_porc_1" class="java.lang.Double"/>
+	<field name="c_porc_3" class="java.lang.Double"/>
+	<field name="c_porc_4" class="java.lang.Double"/>
+	<field name="c_porc_2" class="java.lang.Double"/>
+	<field name="c_porc_5" class="java.lang.Double"/>
+	<field name="ano_ingreso" class="java.lang.Integer"/>
+	<field name="mes_ingreso" class="java.lang.String"/>
+	<field name="dia_ingreso" class="java.lang.String"/>
+	<field name="c_imp_resultado" class="java.lang.Double"/>
+	<field name="c_imp_resul_liq" class="java.lang.Double"/>
+	<field name="cod_concepto" class="java.lang.String"/>
+	<field name="c_dir_personal" class="java.lang.String"/>
+	<field name="c_des_concepto" class="java.lang.String"/>
+	<field name="c_des_rep_legal" class="java.lang.String"/>
+	<field name="c_num_rep_legal" class="java.lang.String"/>
+	<field name="c_des_distrito" class="java.lang.String"/>
+	<field name="ano_cesado" class="java.lang.Integer"/>
+	<field name="mes_cesado" class="java.lang.String"/>
+	<field name="dia_cesado" class="java.lang.String"/>
+	<field name="cod_provincia" class="java.lang.String"/>
+	<field name="retencion_cia_emp" class="java.lang.Double"/>
+	<field name="tot_reten_cia_emp" class="java.lang.Double"/>
+	<field name="c_tip_doc_identidad" class="java.lang.String"/>
+	<field name="jefr_hum" class="java.lang.String"/>
+	<field name="cargo_repr" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="c_tot_imp_retenido_otras" class="java.lang.Double"/>
+	<field name="c_administrador_obra" class="java.lang.String"/>
+	<field name="c_tip_doc_admobra" class="java.lang.String"/>
+	<field name="c_num_doc_admobra" class="java.lang.String"/>
+	<field name="logo_ruta" class="java.lang.String"/>
+	<field name="firma_ruta" class="java.lang.String"/>
+	<field name="nodomiciliado" class="java.lang.Integer"/>
+	<field name="grupo" class="java.lang.Integer"/>
+	<field name="retenido_total_importe" class="java.lang.Double"/>
+	<field name="retenido_total_formato" class="java.lang.String"/>
+	<field name="fecha_impresion" class="java.lang.String"/>
+	<variable name="v_sum_imp_resultado" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{c_imp_resultado}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="v_cc_imp_bruta_anual" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{v_sum_imp_resultado} + ($F{c_imp_resul_liq} != null ?  $F{c_imp_resul_liq} : 0) + ($F{c_retencion_cia_actual} != null ?  $F{c_retencion_cia_actual} : 0)]]></variableExpression>
+	</variable>
+	<variable name="v_c_deduccion" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{c_imp_valor_iut} * $F{num_uit_deducible}]]></variableExpression>
+	</variable>
+	<variable name="v_renta_imponible" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{nodomiciliado}>0? $V{v_cc_imp_bruta_anual} :(
+	($V{v_cc_imp_bruta_anual} - $V{v_c_deduccion})>0 ? ($V{v_cc_imp_bruta_anual} - $V{v_c_deduccion}) :0
+)]]></variableExpression>
+	</variable>
+	<variable name="v_retenido_empresa" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{c_sum_imp_retencion} != null ?  $F{c_sum_imp_retencion} : 0) +
+($F{c_imp_retencion_liq} != null ?  $F{c_imp_retencion_liq} : 0) -
+($F{c_imp_dev_retencion} != null ?  $F{c_imp_dev_retencion} : 0) +
+($F{c_sum_imp_retencion_ma} != null ?  $F{c_sum_imp_retencion_ma} : 0)]]></variableExpression>
+	</variable>
+	<variable name="v_retenido_otros" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{tot_reten_cia_emp} != null ?  $F{tot_reten_cia_emp} : 0) +
+($F{c_tot_imp_retenido_otras} != null ?  $F{c_tot_imp_retenido_otras} : 0)]]></variableExpression>
+	</variable>
+	<variable name="v_tramo1_imp" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{tope_1} < $V{v_cc_imp_bruta_anual}?  ( ( $F{c_monto_1} *  $F{c_porc_1} )/100 )   : ( ( $V{v_renta_imponible} *  $F{c_porc_1} )/100 ))]]></variableExpression>
+	</variable>
+	<variable name="v_tramo2_imp" class="java.lang.Double">
+		<variableExpression><![CDATA[( ($V{v_cc_imp_bruta_anual} < $F{tope_2})  && ( $V{v_cc_imp_bruta_anual} > $F{tope_1} ) ? 
+   ( ($V{v_cc_imp_bruta_anual} - $F{tope_1}) * $F{c_porc_2} / 100 ) :
+   ($V{v_cc_imp_bruta_anual} > $F{tope_2} ? ( ($F{c_monto_2} - $F{c_monto_1} ) * $F{c_porc_2}) /100 : 0.00  )  
+)]]></variableExpression>
+	</variable>
+	<variable name="v_tramo3_imp" class="java.lang.Double">
+		<variableExpression><![CDATA[( ($V{v_cc_imp_bruta_anual} < $F{tope_3})  && ( $V{v_cc_imp_bruta_anual} > $F{tope_2} ) ? 
+   ( ($V{v_cc_imp_bruta_anual} - $F{tope_2}) * $F{c_porc_3} / 100 ) :
+   ($V{v_cc_imp_bruta_anual} > $F{tope_3} ? ( ($F{c_monto_3} - $F{c_monto_2} ) * $F{c_porc_3}) /100 : 0.00  )  
+)]]></variableExpression>
+	</variable>
+	<variable name="v_tramo4_imp" class="java.lang.Double">
+		<variableExpression><![CDATA[( ($V{v_cc_imp_bruta_anual} < $F{tope_4})  && ( $V{v_cc_imp_bruta_anual} > $F{tope_3} ) ? 
+   ( ($V{v_cc_imp_bruta_anual} - $F{tope_3}) * $F{c_porc_4} / 100 ) :
+   ($V{v_cc_imp_bruta_anual} > $F{tope_4} ? ( ($F{c_monto_4} - $F{c_monto_3} ) * $F{c_porc_4}) /100 : 0.00  )  
+)]]></variableExpression>
+	</variable>
+	<variable name="v_tramo5_imp" class="java.lang.Double">
+		<variableExpression><![CDATA[( $V{v_cc_imp_bruta_anual} > $F{tope_4} ? 
+   ( ($V{v_cc_imp_bruta_anual} - $F{tope_4}) * $F{c_porc_5} / 100 ) : 0.00  
+)]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{origen}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<textField>
+					<reportElement x="110" y="2" width="130" height="11" uuid="cb864fc3-046e-4427-9fb8-8de3a7697d59">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc5195ce-9422-4961-82be-6c17671a962a"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="208" splitType="Stretch">
+			<rectangle>
+				<reportElement x="48" y="74" width="320" height="43" uuid="c001cf5e-d841-4c4b-a5f2-d298987aec34"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="58" y="79" width="300" height="30" uuid="8e4cc26f-4520-497e-8da3-d91efe5e51c3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO DE RENTAS Y RETENCIONES POR  RENTAS DE QUINTA CATEGORÍA  ART. 45 del Reglamento de Impuesto a la Renta  D.S. 122 - 94 - EF. Res. Sup. 010-2006/SUNAT]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="374" y="74" width="115" height="35" uuid="7063c866-b50b-40f7-b046-af8f312cead6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="380" y="79" width="100" height="25" uuid="13c71b6e-f1f4-4cef-a49f-f18cdaba5acf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EJERCICIO GRAVABLE  " +$F{ano_proceso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="132" width="440" height="30" uuid="b654e94c-ac92-4c0a-8add-d1df2367e44a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_des_empresa}+ ",  con  RUC.  Nº.  " +  $F{c_ruc_empresa} + ", domiciliado (Domicilio Fiscal ) en "+ ($F{c_des_direccion}  != null ? $F{c_des_direccion} :"")  + " San Isidro, certifica :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="174" width="440" height="30" uuid="e593653f-f524-4844-9727-311fd54490e3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Que, a " +  $F{c_des_personal}  + " se le ha retenido y abonado al fisco el importe de S/. "+$F{retenido_total_formato}+ "  SOLES como pago a cuenta del Impuesto a la Renta, correspondiente al Ejercicio "+$F{ano_proceso} +", calculado en base a las siguientes rentas."]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="18" y="8" width="110" height="60" uuid="1a499979-9c69-4371-bc30-b044326d9c70">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{p_logo}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="8" width="136" height="11" uuid="7a80d3c3-30dc-4bb8-8f4c-0c8e217a32cc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[1.- Renta Bruta Quinta Categoría :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="22" width="100" height="11" uuid="d66ec962-da78-437f-8980-eacbee74b72c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Remuneración Bruta Anual]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="123" y="2" width="196" height="11" uuid="7529ab49-5960-4b16-8567-4d70c360936d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2689a2ba-2aba-4083-ae08-32238139ac18"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_des_concepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00" isBlankWhenNull="true">
+				<reportElement x="364" y="2" width="70" height="11" uuid="1c6af8df-7542-471c-a0ae-c11562315730">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="efffcbfa-7861-4d9c-9b6f-57f950e7da57"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_imp_resultado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="304" splitType="Stretch">
+			<staticText>
+				<reportElement x="110" y="4" width="100" height="11" uuid="7fceb620-4988-4168-8a5d-ec37cb06385b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Liquidación Emp. Actual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="18" width="105" height="11" uuid="b3ce7d4e-ea18-4f4f-9930-fb71cf676646">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Ingresos de otras empresas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="32" width="105" height="11" uuid="d8824ba4-f81e-4120-973e-93af72cf7db2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Total Remuneración Bruta Anual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="46" width="105" height="11" uuid="c3e3abeb-7ac2-498d-ae6a-4c6818b95768">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Deducción de 7 UIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="60" width="105" height="11" uuid="856fa7d3-7f13-4843-b5e5-95433595ae20">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[2.- Renta Neta Imponible]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="49" y="75" width="301" height="11" uuid="b8d611b9-3bf6-471f-850f-c1b8753576d4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3.- Impuesto a la Renta "+ (  $F{nodomiciliado}> 0 ?  "  "+ 
+String.format("%.0f", $F{c_porc_5})	
+	+ "%" : ""
+)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="90" width="105" height="11" uuid="e6689415-d0cd-4738-8c61-e1bdb1db8b8d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4.- Total del impuesto retenido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="106" width="145" height="11" uuid="84469fa7-85e0-4674-8971-1b2c11565d66">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5.- Total del impuesto retenido de otras empresas]]></text>
+			</staticText>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="4" width="70" height="11" uuid="8a32a6ae-9f25-4891-b6d7-25559cafc88d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_imp_resul_liq}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="18" width="70" height="11" uuid="19bb0488-f975-498f-aee7-1d8f23d5e2ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_retencion_cia_actual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="384" y="31" width="50" height="1" uuid="5a9b508f-8dab-4175-ac21-4598f5d7e9a1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="32" width="70" height="11" uuid="da105885-64f2-4cb7-aa50-5edf9a64627e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_cc_imp_bruta_anual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="384" y="46" width="50" height="11" uuid="185c7a49-ba31-4b2d-892e-e17a235c9e24">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_c_deduccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="46" width="4" height="11" uuid="e4dd26b7-91e9-48f7-b22b-090a63f8ad3f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[(]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="46" width="4" height="11" uuid="087acf89-4646-44b1-8514-07c4a97fa72c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="384" y="58" width="50" height="1" uuid="eba5e8ad-59f5-4ec2-97f2-feca22836b4c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="60" width="70" height="11" uuid="3252f711-0924-4b38-bc8a-8bcbd66016d7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_renta_imponible}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="75" width="70" height="11" uuid="0a91bf1b-3207-4ffa-a7de-67d8af9bb865">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_renta_imponible} * $F{c_porc_5} / 100.0]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="90" width="70" height="11" uuid="46a8b83f-27db-4691-b467-327272c45c14">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_retenido_empresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="106" width="70" height="11" uuid="37031ed0-1dbb-4e8f-9b45-f173dab41555">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_retenido_otros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="89" width="174" height="11" uuid="b0cb29aa-e312-4428-980e-74724e4c1248">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.0f", $F{c_porc_1})+"% Hasta "+$F{tope_1_letras}+" UIT"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="104" width="174" height="11" uuid="2efb0816-5e6c-4c10-b01e-87efc80675de">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.0f", $F{c_porc_2})+"%  Exceso "+$F{tope_1_letras}+" Hasta "+$F{tope_2_letras}+ " UIT"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="119" width="174" height="11" uuid="e8b1cf24-25ec-4609-9a0f-d69999482a70">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.0f", $F{c_porc_3})+"%  Exceso "+$F{tope_2_letras}+" Hasta "+$F{tope_3_letras}+ " UIT"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="135" width="174" height="11" uuid="ecd326cd-b137-4759-b748-d9c565b07d3c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.0f", $F{c_porc_4})+"%  Exceso "+$F{tope_3_letras}+" Hasta "+$F{tope_4_letras}+ " UIT"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="151" width="174" height="11" uuid="134161e3-de6a-4c82-9fd0-5755af2282ce">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.0f", $F{c_porc_5}) + "% " + $F{tope_5_letras}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="89" width="70" height="11" uuid="07f6b3e2-c85f-488d-9561-29e0b1ecddab">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo1_imp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="104" width="70" height="11" uuid="9b731f1b-e061-476e-af06-ce1b8e5c4be5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo2_imp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="119" width="70" height="11" uuid="de216a43-47fc-439c-83f6-40e6c04194ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo3_imp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="135" width="70" height="11" uuid="d6f16c25-9c35-4450-bcfb-a7411bdef0aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo4_imp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="151" width="70" height="11" uuid="45282b8c-dc39-4e9b-867e-7c2beb2031db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo5_imp}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="384" y="164" width="50" height="1" uuid="6319578a-dff3-42a0-a7c1-57f5ae9f548b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="166" width="70" height="11" uuid="f89e37dc-fafe-4961-ac37-04900c8a1b1e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_tramo1_imp}+$V{v_tramo2_imp}+$V{v_tramo3_imp}+$V{v_tramo4_imp}+$V{v_tramo5_imp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="182" width="105" height="11" uuid="38cc45ea-cdb1-498d-a7cc-880525067364">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4.- Total del impuesto retenido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="198" width="206" height="11" uuid="e67d5444-9487-4563-a6b3-985a68c03f17">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[5.- Total del impuesto retenido de otras empresas]]></text>
+			</staticText>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="182" width="70" height="11" uuid="af3bfa4a-1298-406b-ba3d-25283f973b32">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_retenido_empresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###,###.00">
+				<reportElement x="364" y="198" width="70" height="11" uuid="872b305a-829d-4d4e-a76b-5c5e8c725de7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{nodomiciliado}<1]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{v_retenido_otros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="225" width="220" height="11" uuid="4f5992b6-627b-4af1-8e4a-80283a3ac0ef">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_impresion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="291" width="150" height="11" uuid="22b25997-b8d7-46b0-8135-6bdfd863f3c6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRABAJADOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="269" y="289" width="150" height="1" uuid="da0e463e-df81-41e2-b5a3-a3319a0715e2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<image hAlign="Center">
+				<reportElement x="56" y="251" width="158" height="50" uuid="d14360f5-473f-4749-8417-8b74d9a703fb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{p_firma}]]></imageExpression>
+			</image>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

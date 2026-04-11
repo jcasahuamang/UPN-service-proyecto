@@ -1,0 +1,70 @@
+package com.tech.application.rest.models.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "skm_permisos")
+public class SkmPermisos {
+
+        @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id",nullable= false)
+    private Long id;
+
+    
+    @Column(name="cod_empresa",nullable= false,length=10)
+    private String empresa;
+
+    @Column(name="cod_personal",nullable= false,length=25)
+    private String codpersonal;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="fec_inicio",nullable= true)
+    private Date fecinicio;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="fec_fin",nullable= true)
+    private Date fecfin;
+
+    @Column(name="num_dias",nullable= true)
+    private Double numdias;
+
+    @Column(name="observacion",nullable= true,length=250)
+    private String observacion;
+
+    @Column(name="tipo",nullable= false,length=40)
+    private String tipo;
+
+    @Column(name="estado",nullable= false,length=6)
+    private String estado;
+
+    
+    @Column(name="usu_creacion",nullable= true,length=250)
+    private String usucreacion;
+
+    @Column(name="fec_creacion",nullable= true)
+    private Date feccreacion;    
+
+    @Column(name="codigo_transferencia",nullable= true,length=90)
+    private String codigotransferencia;
+
+}

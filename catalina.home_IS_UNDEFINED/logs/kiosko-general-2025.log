@@ -1,0 +1,36 @@
+2026-04-10 21:36:02 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+2026-04-10 21:36:02 INFO  c.t.a.r.ApplicationRestApplication - Starting ApplicationRestApplication using Java 11.0.28 on LPTP01 with PID 25704 (D:\Desarrollo\Spring5\workspace\UPN-service-kiosko\target\classes started by Josue in D:\Desarrollo\Spring5\workspace\UPN-service-kiosko)
+2026-04-10 21:36:02 INFO  c.t.a.r.ApplicationRestApplication - No active profile set, falling back to default profiles: default
+2026-04-10 21:36:02 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-10 21:36:02 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-10 21:36:02 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-10 21:36:02 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 89 ms. Found 23 JPA repository interfaces.
+2026-04-10 21:36:03 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@14855075' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-10 21:36:03 INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-10 21:36:03 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8060 (http)
+2026-04-10 21:36:03 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8060"]
+2026-04-10 21:36:03 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-10 21:36:03 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.50]
+2026-04-10 21:36:03 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-10 21:36:03 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1256 ms
+2026-04-10 21:36:03 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-10 21:36:03 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-10 21:36:03 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-10 21:36:03 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-10 21:36:03 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.32.Final
+2026-04-10 21:36:03 INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-04-10 21:36:03 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServer2008Dialect
+2026-04-10 21:36:04 WARN  org.hibernate.mapping.RootClass - HHH000038: Composite-id class does not override equals(): com.tech.application.rest.models.entity.keys.PlaPersonalId
+2026-04-10 21:36:04 WARN  org.hibernate.mapping.RootClass - HHH000039: Composite-id class does not override hashCode(): com.tech.application.rest.models.entity.keys.PlaPersonalId
+2026-04-10 21:36:04 WARN  org.hibernate.mapping.RootClass - HHH000038: Composite-id class does not override equals(): com.tech.application.rest.models.entity.keys.SkmConfigVisualizacionId
+2026-04-10 21:36:04 WARN  org.hibernate.mapping.RootClass - HHH000039: Composite-id class does not override hashCode(): com.tech.application.rest.models.entity.keys.SkmConfigVisualizacionId
+2026-04-10 21:36:04 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-04-10 21:36:04 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 21:36:05 INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@733bd839, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f6d42d4, org.springframework.security.web.header.HeaderWriterFilter@711a6484, org.springframework.web.filter.CorsFilter@6e0a7aa3, org.springframework.security.web.authentication.logout.LogoutFilter@26f60875, com.tech.application.rest.security.jwt.JwtTokenFilter@6cc5af9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@189b073a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3fe88a86, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@61b792ab, org.springframework.security.web.session.SessionManagementFilter@2fa4185f, org.springframework.security.web.access.ExceptionTranslationFilter@3cdc0526, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@758dbe90]
+2026-04-10 21:36:05 INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-10 21:36:05 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8060"]
+2026-04-10 21:36:05 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8060 (http) with context path ''
+2026-04-10 21:36:05 INFO  c.t.a.r.ApplicationRestApplication - Started ApplicationRestApplication in 3.546 seconds (JVM running for 3.967)
+2026-04-10 21:37:04 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-10 21:37:04 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-10 21:37:04 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

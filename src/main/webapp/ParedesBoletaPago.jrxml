@@ -1,0 +1,257 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="ParedesBoletaPago" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed7b3c66-6a62-41e9-9680-8355067b0a5e">
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="Empty Dataset1" uuid="bc278be4-e574-4ba2-8c6a-299dca26e453"/>
+	<parameter name="p_des_mes" class="java.lang.String"/>
+	<parameter name="p_ano" class="java.lang.String"/>
+	<parameter name="p_num_ruc_empresa" class="java.lang.String"/>
+	<parameter name="p_c_des_razon_social" class="java.lang.String"/>
+	<parameter name="p_des_direccion" class="java.lang.String"/>
+	<parameter name="p_c_nom_personal" class="java.lang.String"/>
+	<parameter name="p_num_doc_identidad" class="java.lang.String"/>
+	<parameter name="p_sexo" class="java.lang.String"/>
+	<parameter name="p_nacionalidad" class="java.lang.String"/>
+	<parameter name="p_fec_ingreso" class="java.util.Date"/>
+	<parameter name="p_fec_cese" class="java.util.Date"/>
+	<parameter name="p_des_c_costos" class="java.lang.String"/>
+	<parameter name="p_des_area" class="java.lang.String"/>
+	<parameter name="p_c_des_cargo" class="java.lang.String"/>
+	<parameter name="p_des_regimen" class="java.lang.String"/>
+	<parameter name="p_tip_cargo" class="java.lang.String"/>
+	<parameter name="p_c_nom_afp" class="java.lang.String"/>
+	<parameter name="p_cod_unico_spp" class="java.lang.String"/>
+	<parameter name="p_rem" class="java.lang.String"/>
+	<parameter name="p_c_sueldo" class="java.lang.Double"/>
+	<query language="sql"><![CDATA[]]></query>
+	<background splitType="Stretch"/>
+	<pageHeader height="49" splitType="Stretch">
+		<element kind="textField" uuid="64086481-9bf8-40bd-9a07-97cc3524b9ae" x="2" y="33" width="548" height="14" underline="true" hTextAlign="Center">
+			<expression><![CDATA["MES DE "+$P{p_des_mes}+" "+$P{p_ano}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="fba49ed9-e2cb-45d9-ab67-fda943642fa7" x="2" y="19" width="548" height="12" fontName="Arial" bold="true" hTextAlign="Center">
+			<text><![CDATA[SUELDOS]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="f255a2ce-fe42-4ae3-9e25-d68c26eb1ac8" x="2" y="4" width="548" height="12" fontName="Arial" bold="true" hTextAlign="Center">
+			<text><![CDATA[BOLETA DE REMUNERACIONES]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</pageHeader>
+	<columnHeader height="207" splitType="Stretch">
+		<element kind="textField" uuid="2c921b35-a4fb-41dd-a436-0d27756fcff7" x="93" y="24" width="248" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_num_ruc_empresa}]]></expression>
+		</element>
+		<element kind="textField" uuid="d7063baa-bcd4-4509-83d6-428af9e7f301" x="93" y="36" width="426" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_c_des_razon_social}]]></expression>
+		</element>
+		<element kind="textField" uuid="b2333a92-f3ee-4142-9f32-5643691e54c5" x="92" y="49" width="428" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_des_direccion}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="d5caacf8-95be-402a-865f-6d3648edb911" x="10" y="49" width="50" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Dirección:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="352576ac-01a4-4ec7-b7a7-187deb8f41f6" x="10" y="36" width="60" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Razón social:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="9132403f-b5b0-4d78-8b6c-e631e15240ff" x="9" y="22" width="30" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[RUC:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="3dbad160-3c4f-4d11-a1c3-b78ca2521764" x="7" y="10" width="82" height="12" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Datos del empleador]]></text>
+		</element>
+		<element kind="line" uuid="b567b8aa-2685-4693-9eda-1f3b5afbfe96" x="2" y="63" width="553" height="1">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="line" uuid="ba8e5e4d-557e-41a5-952f-9e6f6de46848" x="2" y="6" width="553" height="1">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="line" uuid="3b8c6040-adbc-4cc0-9c01-8216ee7d2a36" x="2" y="6" width="1" height="58">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="line" uuid="8c637bc6-f8ba-42a4-b0cf-08d18ad6e44f" x="554" y="6" width="1" height="58">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="staticText" uuid="5ebd62de-ae83-4932-98ac-e77ee85cc3af" x="7" y="74" width="82" height="12" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Datos del trabajador]]></text>
+		</element>
+		<element kind="staticText" uuid="40ceb4f0-ff05-4963-9244-dfa9a0fd7199" x="8" y="88" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Apellidos y nombre:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="f9bec107-f210-4907-a976-19993374b866" x="9" y="100" width="60" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[DNI/CE:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="a8b0c291-0d39-49c8-a93f-4f9be53117e0" x="9" y="113" width="50" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Sexo:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="2ba1fb9c-270e-40db-9ce1-fa246cc22415" x="9" y="126" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Nacionalidad:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b4047a05-f2ae-448c-a7e0-2a4d0114a908" x="9" y="138" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Fecha de ingreso:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="035b2169-b4f5-42ec-905c-4d497ed8c043" x="9" y="151" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Fecha de cese:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="cee193d2-1477-4e20-bae6-aedc104a1d49" x="9" y="164" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Centro de costo:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="d4e4eeb0-8286-403e-ade1-d2c0afc40f0d" x="9" y="176" width="60" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Area:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="e5076a09-d1c8-4583-808b-8c3abaf12103" x="9" y="189" width="50" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Cargo:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="056a6ac2-ee6d-471f-84f3-2af47460dada" x="93" y="189" width="286" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_c_des_cargo}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="8efd66ba-3dfb-4c68-945b-1e7203046125" x="93" y="176" width="286" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_des_area}]]></expression>
+		</element>
+		<element kind="textField" uuid="df7a506a-a9fd-4397-b42c-220666704db5" x="93" y="164" width="286" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_des_c_costos}]]></expression>
+		</element>
+		<element kind="textField" uuid="b87b2be1-d4cc-4014-a85a-ac69716aabc8" x="93" y="151" width="56" height="10" fontName="Arial" fontSize="8.0" pattern="dd/mm/yyyy">
+			<expression><![CDATA[$P{p_fec_cese}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="64507f02-5bf4-4b6c-b105-b52fe2aa269d" x="93" y="138" width="56" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[DATEFORMAT($P{p_fec_ingreso}, "dd/mm/yyyy")]]></expression>
+		</element>
+		<element kind="textField" uuid="36eae21f-f663-465a-908d-5e20fa51cc14" x="93" y="126" width="56" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_nacionalidad}]]></expression>
+		</element>
+		<element kind="textField" uuid="7b8e44b6-9110-4b36-ba27-efab8d7819f6" x="93" y="113" width="26" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[LEFT( $P{p_sexo},1	)]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="0cc1fe44-445f-425a-a4b1-ccbdc4c58c06" x="93" y="100" width="46" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_num_doc_identidad}]]></expression>
+		</element>
+		<element kind="textField" uuid="a08c313b-af8f-4a75-be58-e825ffc4083c" x="93" y="88" width="248" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_c_nom_personal}]]></expression>
+		</element>
+		<element kind="staticText" uuid="baed1538-09b1-4a0e-909d-15788f4ed131" x="181" y="101" width="60" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Régimen:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="4e070b96-2c1b-4c2a-8d57-a9fe14dac180" x="266" y="100" width="74" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_des_regimen}]]></expression>
+		</element>
+		<element kind="textField" uuid="417cdfde-5bda-4923-a8bb-1b13afe059ad" x="266" y="114" width="74" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_tip_cargo}]]></expression>
+		</element>
+		<element kind="staticText" uuid="bbb5d98a-2034-46cf-90c4-b53d68866fab" x="181" y="114" width="68" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Tipo de puesto:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="0d2fdbbd-7a14-46f5-b2cd-3a5f8b2062b0" x="181" y="127" width="84" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Sistema pensionario:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="02cd40ac-7713-4c7c-9922-2ff9baf5e78d" x="267" y="126" width="74" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_c_nom_afp}]]></expression>
+		</element>
+		<element kind="textField" uuid="4001401d-e9e1-477e-b885-19ad90543f12" x="267" y="138" width="74" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_cod_unico_spp}]]></expression>
+		</element>
+		<element kind="staticText" uuid="deb9152c-347b-4d9b-99c9-e106236f0630" x="182" y="139" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[CUSPP:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="78cd1e43-3dd7-449a-89ef-c2ace4bb733b" x="182" y="152" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Haber básico:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="textField" uuid="da882d15-4c96-4962-b210-5cfb191dc074" x="267" y="152" width="74" height="10" fontName="Arial" fontSize="8.0">
+			<expression><![CDATA[$P{p_rem}+" "+TEXT($P{p_c_sueldo},"###,###.00")]]></expression>
+		</element>
+		<element kind="staticText" uuid="a26492fc-89ba-4f3a-8824-f86d43267c19" x="391" y="189" width="50" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Tardanzas:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="0180a519-9ce2-4288-bd33-4cfdf5a55dc6" x="391" y="176" width="60" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[H.E. 100%:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="eb3e5a45-d4f8-42d5-8b6d-d201fa6a854a" x="391" y="164" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[H.E. 35%:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="ba553e95-50ea-4387-bf0c-c2d8ef75797f" x="391" y="151" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[H.E. 25%:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="16f0c31d-d9cb-48c1-b997-f887a0a43611" x="391" y="138" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Horas laboradas:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="79b81efc-ea9b-4df0-90cd-a1c9ff665184" x="391" y="126" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Dias laborados:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="f5aa2abf-523d-40d4-a77c-038bab28e072" x="391" y="100" width="76" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[N° cuenta banco:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="b4bf49c5-10b7-41c6-b431-e1f74bf071ad" x="390" y="88" width="78" height="10" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Banco del sueldo:]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="a1243ddd-a4a2-43a2-bafe-4348f5e6f495" x="389" y="74" width="82" height="12" fontName="Arial" fontSize="8.0" bold="true">
+			<text><![CDATA[Fecha de pago:]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="208" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+</jasperReport>
