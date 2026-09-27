@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepDocumentoPersonalController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.controllers</a> &gt; <span class="el_source">RepDocumentoPersonalController.java</span></div><h1>RepDocumentoPersonalController.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.controllers;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
+//import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tech.application.rest.models.entity.RepBoletaCts;
+import com.tech.application.rest.models.entity.RepBoletaPago;
+import com.tech.application.rest.models.entity.RepCertificado5ta;
+import com.tech.application.rest.models.services.service.IArchivoService;
+import com.tech.application.rest.models.services.service.IRepDocumentoPersonalService;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+@CrossOrigin(origins= &quot;*&quot;)
+@RestController
+@RequestMapping(&quot;/personaldoc&quot;)
+<span class="fc" id="L45">public class RepDocumentoPersonalController {</span>
+
+
+	@Autowired
+    private IRepDocumentoPersonalService repDocumentoPersonalService;
+	
+	@Value(&quot;${resources.images}&quot;)
+	private String rutaImagenes;
+
+	@Autowired
+    private IArchivoService archivoService;
+
+	@GetMapping(&quot;/valida/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}/{tipdocumento}&quot;)
+	public Integer ValidarVisualizacion(
+		@PathVariable String codempresa,
+		@PathVariable String ano,
+		@PathVariable String mes,
+		@PathVariable String version,
+		@PathVariable String codpersonal,
+		@PathVariable String codusuario,
+		@PathVariable String docidentidad,
+		@PathVariable String tipdocumento) {
+
+
+<span class="fc" id="L69">        Integer retorno = 0;</span>
+
+		try {
+<span class="fc" id="L72">			retorno = repDocumentoPersonalService.ValidaVisualizacion(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad,tipdocumento);</span>
+
+<span class="fc" id="L74">		} catch(DataAccessException e) {</span>
+<span class="fc" id="L75">			return 0;</span>
+			
+<span class="fc" id="L77">		}</span>
+
+<span class="fc" id="L79">		return retorno;		</span>
+	}
+	
+
+
+	
+    @GetMapping(&quot;/boletapago/data/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}&quot;)
+	public ResponseEntity&lt;?&gt; BoletaPagoData(
+		@PathVariable String codempresa,
+		@PathVariable String ano,
+		@PathVariable String mes,
+		@PathVariable String version,
+		@PathVariable String codpersonal,
+		@PathVariable String codusuario,
+		@PathVariable String docidentidad){		
+				
+<span class="fc" id="L95">		List&lt;RepBoletaPago&gt; reporte= null;</span>
+<span class="fc" id="L96">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		
+		try {
+<span class="fc" id="L100">			reporte = repDocumentoPersonalService.execProcBoletaPago(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad);</span>
+
+<span class="fc" id="L102">		} catch(DataAccessException e) {</span>
+<span class="fc" id="L103">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="fc" id="L104">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="fc" id="L105">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="fc" id="L107">		}</span>
+<span class="fc" id="L108">		return new ResponseEntity&lt;List&lt;RepBoletaPago&gt;&gt;(reporte,HttpStatus.OK);</span>
+	}		
+  
+	@GetMapping(&quot;/boletapago/pdf/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}&quot;)
+	public ResponseEntity&lt;byte[]&gt; BoletaPagoPdf(
+		@PathVariable String codempresa,
+		@PathVariable String ano,
+		@PathVariable String mes,
+		@PathVariable String version,
+		@PathVariable String codpersonal,
+		@PathVariable String codusuario,
+		@PathVariable String docidentidad) throws JRException,DataAccessException, FileNotFoundException{
+		
+<span class="fc" id="L121">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L122">		headers.setContentType(MediaType.APPLICATION_PDF);		</span>
+<span class="fc" id="L123">		headers.setContentDispositionFormData(&quot;boletapago&quot;,&quot;boletapago.pdf&quot;);</span>
+
+<span class="fc" id="L125">		String logoPath = &quot;&quot;;</span>
+<span class="fc" id="L126">		String firmaPath = &quot;&quot;;</span>
+
+<span class="fc" id="L128">		List&lt;RepBoletaPago&gt; reporte=  new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L129">		reporte = repDocumentoPersonalService.execProcBoletaPago(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad);</span>
+
+<span class="fc" id="L131">		logoPath = archivoService.ObtieneRutaImagen(&quot;LOGO&quot;,&quot;COMPLETA&quot;, reporte.get(0).getNUM_RUC_EMPRESA());</span>
+<span class="fc" id="L132">		firmaPath = archivoService.ObtieneRutaImagen(&quot;FIRMA&quot;,&quot;COMPLETA&quot;, reporte.get(0).getNUM_RUC_EMPRESA());</span>
+
+<span class="fc" id="L134">		String dia =&quot;&quot;;</span>
+
+<span class="pc bpc" id="L136" title="3 of 4 branches missed.">		switch (mes) {</span>
+			case &quot;01&quot;: case &quot;03&quot;: case &quot;05&quot;: case &quot;07&quot;:
+			case &quot;08&quot;: case &quot;10&quot;: case &quot;12&quot;:
+<span class="fc" id="L139">				dia = &quot;31&quot;;</span>
+<span class="fc" id="L140">				break;</span>
+			case &quot;04&quot;: case &quot;06&quot;: case &quot;09&quot;: case &quot;11&quot;:
+<span class="nc" id="L142">				dia = &quot;30&quot;;</span>
+<span class="nc" id="L143">				break;</span>
+			case &quot;02&quot;:
+<span class="nc" id="L145">				dia = &quot;28&quot;;</span>
+<span class="nc" id="L146">				break;</span>
+			default:
+<span class="nc" id="L148">				dia = &quot;30&quot;;</span>
+			}
+
+
+<span class="fc" id="L152">		Map&lt;String, Object&gt; parameters = new HashMap&lt;&gt;();	</span>
+<span class="fc" id="L153">		parameters.put(&quot;p_des_mes&quot;, mes);</span>
+<span class="fc" id="L154">		parameters.put(&quot;p_ano&quot;, ano);</span>
+//		parameters.put(&quot;p_fecha_pago&quot;, &quot;15/&quot;+mes+&quot;/&quot;+ano);
+<span class="fc" id="L156">		parameters.put(&quot;p_fecha_pago&quot;, dia+&quot;/&quot;+mes+&quot;/&quot;+ano);				</span>
+//      parameters.put(&quot;conceptoDataSet&quot;, conceptoDataSet);		
+<span class="fc" id="L158">		parameters.put(&quot;p_logo&quot;, logoPath);</span>
+<span class="fc" id="L159">		parameters.put(&quot;p_firma&quot;, firmaPath);</span>
+
+<span class="fc" id="L161">		JasperReport report = JasperCompileManager.compileReport(ResourceUtils.getFile(&quot;classpath:\\templates\\UniversitarioBoletaPago.jrxml&quot;).getPath());</span>
+<span class="fc" id="L162">		JasperPrint print = JasperFillManager.fillReport(report, parameters,new JRBeanCollectionDataSource(reporte));</span>
+<span class="fc" id="L163">		return ResponseEntity.ok().headers(headers).body( JasperExportManager.exportReportToPdf(print));</span>
+
+	}			
+
+	@GetMapping(&quot;/boletapago/pdf2/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}&quot;)
+	public ResponseEntity&lt;?&gt; BoletaPagoPdfxxxx(@PathVariable String codempresa,@PathVariable String ano,
+			@PathVariable String mes,@PathVariable String version,@PathVariable String codpersonal,
+            @PathVariable String codusuario,@PathVariable String docidentidad) throws IOException{
+
+//		MaeCompania compania= null;
+<span class="nc" id="L173">		List&lt;RepBoletaPago&gt; reporte=  new ArrayList&lt;&gt;();;</span>
+<span class="nc" id="L174">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+<span class="nc" id="L176">		String filePath = &quot;D:\\Desarrollo\\Spring5\\workspace\\service-kiosko\\src\\main\\resources\\templates\\ParedesBoletaPago2.jrxml&quot;;</span>
+
+<span class="nc" id="L178">		String logoPath = &quot;&quot;;</span>
+<span class="nc" id="L179">		String firmaPath = &quot;&quot;;</span>
+
+<span class="nc" id="L181">		String fileDestination = &quot;D:\\Desarrollo\\Spring5\\&quot;+codempresa+ano+mes+version+docidentidad+&quot;.pdf&quot;;</span>
+		try {
+
+<span class="nc" id="L184">			reporte = repDocumentoPersonalService.execProcBoletaPago(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad);</span>
+
+<span class="nc" id="L186">			logoPath = rutaImagenes+&quot;\\&quot;+reporte.get(0).getNUM_RUC_EMPRESA()+&quot;_logo.jpg&quot;;</span>
+<span class="nc" id="L187">			firmaPath = rutaImagenes+&quot;\\&quot;+reporte.get(0).getNUM_RUC_EMPRESA()+&quot;_firma.jpg&quot;;</span>
+	
+<span class="nc bnc" id="L189" title="All 2 branches missed.">			if (!new File(logoPath).exists()){			</span>
+<span class="nc" id="L190">				logoPath = rutaImagenes+&quot;\\logoblanco.jpg&quot;;</span>
+			}
+<span class="nc bnc" id="L192" title="All 2 branches missed.">			if (!new File(firmaPath).exists()){			</span>
+<span class="nc" id="L193">				firmaPath = rutaImagenes+&quot;\\firmablanco.jpg&quot;;</span>
+			}
+	
+
+			try {
+				/*
+				List&lt;RepBoletaPagoDet&gt; detalle = new ArrayList&lt;&gt;();
+
+				for(RepBoletaPago boletadet: reporte){
+					RepBoletaPagoDet det = new RepBoletaPagoDet(
+						(boletadet.getIN_DESC() == null) ? &quot;&quot; : boletadet.getIN_DESC(),
+						boletadet.getIN_IMP(),
+						(boletadet.getDE_DESC() == null) ? &quot;&quot; : boletadet.getDE_DESC(),
+						boletadet.getDE_IMP(),
+						(boletadet.getAP_DESC() == null) ? &quot;&quot; : boletadet.getAP_DESC(),
+						boletadet.getAP_IMP()); 
+					detalle.add(det);
+				}
+				JRBeanCollectionDataSource conceptoDataSet = new JRBeanCollectionDataSource(detalle);
+				*/
+				/*
+				byte[] logo = compania.getBmplogo();
+				byte[] firma = compania.getBmpfirma();
+				ByteArrayInputStream bislogo = new ByteArrayInputStream(logo);
+				BufferedImage imagelogo = ImageIO.read(bislogo);
+
+				*/
+
+<span class="nc" id="L221">				String dia = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L223" title="All 4 branches missed.">					switch (mes) {</span>
+						case &quot;01&quot;: case &quot;03&quot;: case &quot;05&quot;: case &quot;07&quot;:
+						case &quot;08&quot;: case &quot;10&quot;: case &quot;12&quot;:
+<span class="nc" id="L226">							dia = &quot;31&quot;;</span>
+<span class="nc" id="L227">							break;</span>
+						case &quot;04&quot;: case &quot;06&quot;: case &quot;09&quot;: case &quot;11&quot;:
+<span class="nc" id="L229">							dia = &quot;30&quot;;</span>
+<span class="nc" id="L230">							break;</span>
+						case &quot;02&quot;:
+<span class="nc" id="L232">							dia = &quot;28&quot;;</span>
+<span class="nc" id="L233">							break;</span>
+						default:
+<span class="nc" id="L235">							dia = &quot;30&quot;;</span>
+						}
+				
+<span class="nc" id="L238">				Map&lt;String, Object&gt; parameters = new HashMap&lt;&gt;();	</span>
+<span class="nc" id="L239">				parameters.put(&quot;p_des_mes&quot;, mes);</span>
+<span class="nc" id="L240">				parameters.put(&quot;p_ano&quot;, ano);</span>
+//				parameters.put(&quot;p_fecha_pago&quot;, &quot;15/&quot;+mes+&quot;/&quot;+ano);
+<span class="nc" id="L242">				parameters.put(&quot;p_fecha_pago&quot;, dia+&quot;/&quot;+mes+&quot;/&quot;+ano);				</span>
+//				parameters.put(&quot;conceptoDataSet&quot;, conceptoDataSet);		
+<span class="nc" id="L244">				parameters.put(&quot;p_logo&quot;, logoPath);</span>
+<span class="nc" id="L245">				parameters.put(&quot;p_firma&quot;, firmaPath);</span>
+
+<span class="nc" id="L247">				JasperReport report = JasperCompileManager.compileReport(filePath);</span>
+<span class="nc" id="L248">				JasperPrint print = JasperFillManager.fillReport(report, parameters,new JRBeanCollectionDataSource(reporte));</span>
+<span class="nc" id="L249">				JasperExportManager.exportReportToPdfFile(print,fileDestination);</span>
+
+<span class="nc" id="L251">				response.put(&quot;mensaje&quot;, &quot;Se genero el documento en la ruta: &quot;.concat(fileDestination));</span>
+<span class="nc" id="L252">				return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.OK);</span>
+
+<span class="nc" id="L254">			} catch (JRException e) {</span>
+<span class="nc" id="L255">				response.put(&quot;mensaje&quot;, &quot;Error al generar el documento en PDF.&quot;);</span>
+<span class="nc" id="L256">				response.put(&quot;error&quot;, e.getMessage());</span>
+<span class="nc" id="L257">				return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+				}
+
+
+<span class="nc" id="L261">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L262">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L263">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L264">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+		}
+		//return new ResponseEntity&lt;List&lt;RepBoletaPago&gt;&gt;(reporte,HttpStatus.OK);
+	}			
+
+	/********************  CERTIFICADO DE QUINTA **********************************************/
+	@GetMapping(&quot;/certificadoqta/data/{codempresa}/{ano}/{mes}/{codpersonal}/{codusuario}/{docidentidad}&quot;)
+	public ResponseEntity&lt;?&gt; Certificado5taData(@PathVariable String codempresa,
+	@PathVariable String ano,
+	@PathVariable String mes,
+	@PathVariable String codpersonal,
+	@PathVariable String codusuario,
+	@PathVariable String docidentidad){
+				
+<span class="fc" id="L279">		List&lt;RepCertificado5ta&gt; reporte= null;</span>
+<span class="fc" id="L280">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		
+		try {
+<span class="fc" id="L284">			reporte = repDocumentoPersonalService.execProcCertificado5ta(codempresa,ano,mes,codpersonal,codusuario,docidentidad);</span>
+
+<span class="fc" id="L286">		} catch(DataAccessException e) {</span>
+<span class="fc" id="L287">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="fc" id="L288">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="fc" id="L289">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="fc" id="L291">		}</span>
+<span class="fc" id="L292">		return new ResponseEntity&lt;List&lt;RepCertificado5ta&gt;&gt;(reporte,HttpStatus.OK);</span>
+	}
+
+
+	@GetMapping(&quot;/certificadoqta/pdf/{codempresa}/{ano}/{mes}/{codpersonal}/{codusuario}/{docidentidad}&quot;)
+	public ResponseEntity&lt;byte[]&gt; Certificado5taPdf(@PathVariable String codempresa,
+	@PathVariable String ano,
+	@PathVariable String mes,
+	@PathVariable String codpersonal,
+	@PathVariable String codusuario,
+	@PathVariable String docidentidad) throws JRException,DataAccessException, FileNotFoundException{
+
+<span class="fc" id="L304">		String logoPath = &quot;&quot;;</span>
+<span class="fc" id="L305">		String firmaPath = &quot;&quot;;</span>
+
+<span class="fc" id="L307">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L308">		headers.setContentType(MediaType.APPLICATION_PDF);		</span>
+<span class="fc" id="L309">		headers.setContentDispositionFormData(&quot;certificado5ta&quot;,&quot;certificado5ta.pdf&quot;);</span>
+
+
+<span class="fc" id="L312">		List&lt;RepCertificado5ta&gt; reporte=  new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L313">		reporte = repDocumentoPersonalService.execProcCertificado5ta(codempresa,ano,mes,codpersonal,codusuario,docidentidad);</span>
+			
+<span class="fc" id="L315">		logoPath = archivoService.ObtieneRutaImagen(&quot;LOGO&quot;,&quot;COMPLETA&quot;, reporte.get(0).getC_ruc_empresa());</span>
+<span class="fc" id="L316">		firmaPath = archivoService.ObtieneRutaImagen(&quot;FIRMA&quot;,&quot;COMPLETA&quot;, reporte.get(0).getC_ruc_empresa());</span>
+
+<span class="fc" id="L318">		Map&lt;String, Object&gt; parameters = new HashMap&lt;&gt;();	</span>
+<span class="fc" id="L319">		parameters.put(&quot;p_logo&quot;, logoPath);</span>
+<span class="fc" id="L320">		parameters.put(&quot;p_firma&quot;, firmaPath);</span>
+
+		
+<span class="fc" id="L323">		JasperReport report = JasperCompileManager.compileReport(ResourceUtils.getFile(&quot;classpath:\\templates\\UniversitarioCertificado5ta.jrxml&quot;).getPath());</span>
+<span class="fc" id="L324">		JasperPrint print = JasperFillManager.fillReport(report, parameters,new JRBeanCollectionDataSource(reporte));</span>
+<span class="fc" id="L325">		return ResponseEntity.ok().headers(headers).body( JasperExportManager.exportReportToPdf(print));</span>
+	}			
+
+	/********************  BOLETA DE CTS **********************************************/
+	@GetMapping(&quot;/boletacts/data/{codempresa}/{ano}/{mes}/{codpersonal}&quot;)
+	public ResponseEntity&lt;?&gt; BoletaCtsData(@PathVariable String codempresa,
+	@PathVariable String ano,
+	@PathVariable String mes,
+	@PathVariable String codpersonal){
+		
+<span class="fc" id="L335">		List&lt;RepBoletaCts&gt; reporte= null;</span>
+<span class="fc" id="L336">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		
+		try {
+<span class="fc" id="L340">			reporte = repDocumentoPersonalService.execProcBoletaCts(codempresa,ano,mes,codpersonal);</span>
+
+<span class="fc" id="L342">		} catch(DataAccessException e) {</span>
+<span class="fc" id="L343">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="fc" id="L344">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="fc" id="L345">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="fc" id="L347">		}</span>
+<span class="fc" id="L348">		return new ResponseEntity&lt;List&lt;RepBoletaCts&gt;&gt;(reporte,HttpStatus.OK);</span>
+	}
+
+	@GetMapping(&quot;/boletacts/pdf/{codempresa}/{ano}/{mes}/{codpersonal}&quot;)
+	public ResponseEntity&lt;byte[]&gt; BoletaCtsPdf(@PathVariable String codempresa,
+	@PathVariable String ano,
+	@PathVariable String mes,
+	@PathVariable String codpersonal) throws JRException,DataAccessException, FileNotFoundException{
+
+<span class="fc" id="L357">		String logoPath = &quot;&quot;;</span>
+<span class="fc" id="L358">		String firmaPath = &quot;&quot;;</span>
+
+
+<span class="fc" id="L361">		HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L362">		headers.setContentType(MediaType.APPLICATION_PDF);		</span>
+<span class="fc" id="L363">		headers.setContentDispositionFormData(&quot;boletacts&quot;,&quot;boletacts.pdf&quot;);</span>
+
+				
+<span class="fc" id="L366">		List&lt;RepBoletaCts&gt; reporte=  new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L368">		reporte = repDocumentoPersonalService.execProcBoletaCts(codempresa,ano,mes,codpersonal);	</span>
+
+<span class="fc" id="L370">		logoPath = archivoService.ObtieneRutaImagen(&quot;LOGO&quot;,&quot;COMPLETA&quot;, reporte.get(0).getNum_ruc_empresa());</span>
+<span class="fc" id="L371">		firmaPath = archivoService.ObtieneRutaImagen(&quot;FIRMA&quot;,&quot;COMPLETA&quot;, reporte.get(0).getNum_ruc_empresa());</span>
+
+<span class="fc" id="L373">		Map&lt;String, Object&gt; parameters = new HashMap&lt;&gt;();	</span>
+<span class="fc" id="L374">		parameters.put(&quot;p_logo&quot;, logoPath);</span>
+<span class="fc" id="L375">		parameters.put(&quot;p_firma&quot;, firmaPath);</span>
+
+<span class="fc" id="L377">		JasperReport report = JasperCompileManager.compileReport(ResourceUtils.getFile(&quot;classpath:\\templates\\UniversitarioBoletaCTS.jrxml&quot;).getPath());</span>
+<span class="fc" id="L378">		JasperPrint print = JasperFillManager.fillReport(report, parameters,new JRBeanCollectionDataSource(reporte));</span>
+<span class="fc" id="L379">		return ResponseEntity.ok().headers(headers).body( JasperExportManager.exportReportToPdf(print));</span>
+
+		}		
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

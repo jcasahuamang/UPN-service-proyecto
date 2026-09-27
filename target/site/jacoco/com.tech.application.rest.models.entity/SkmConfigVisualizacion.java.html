@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkmConfigVisualizacion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.models.entity</a> &gt; <span class="el_source">SkmConfigVisualizacion.java</span></div><h1>SkmConfigVisualizacion.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.models.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import com.tech.application.rest.models.entity.keys.SkmConfigVisualizacionId;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+<span class="nc" id="L18">@NoArgsConstructor</span>
+<span class="nc" id="L19">@AllArgsConstructor</span>
+@Getter
+<span class="nc" id="L21">@Setter</span>
+@Entity
+@Table(name = &quot;SKM_CONFIG_VISUALIZACION&quot;)
+@IdClass(SkmConfigVisualizacionId.class) 
+public class SkmConfigVisualizacion {
+    
+    @Id
+    @Column(name=&quot;COD_EMPRESA&quot;,nullable= false,length=10)
+<span class="nc" id="L29">    private String codempresa;</span>
+
+    @Id
+    @Column(name=&quot;ANO_PROCESO&quot;,nullable= false,length=4)
+<span class="nc" id="L33">    private String anoproceso;</span>
+
+    @Id
+    @Column(name=&quot;MES_PROCESO&quot;,nullable= false,length=2)
+<span class="nc" id="L37">    private String mesproceso;</span>
+
+    @Id
+    @Column(name=&quot;COD_TIPO_PLANILLA&quot;,nullable= false,length=2)
+<span class="nc" id="L41">    private String codtipoplanilla;</span>
+
+    @Id
+    @Column(name=&quot;TIP_DOCUMENTO&quot;,nullable= false,length=12)
+<span class="nc" id="L45">    private String tipdocumento;</span>
+
+    @Column(name=&quot;FECHA&quot;,nullable= true)
+<span class="nc" id="L48">    private Date fecha;    </span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

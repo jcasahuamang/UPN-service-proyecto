@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MaeTablaDetController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.controllers</a> &gt; <span class="el_source">MaeTablaDetController.java</span></div><h1>MaeTablaDetController.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.controllers;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tech.application.rest.models.entity.MaeTablaDet;
+import com.tech.application.rest.models.entity.configurations.TablaGeneral;
+import com.tech.application.rest.models.services.service.IMaeTablaDetService;
+
+@CrossOrigin(origins= &quot;*&quot;)
+@RestController
+@RequestMapping(&quot;/maetabladet&quot;)
+<span class="fc" id="L29">public class MaeTablaDetController {</span>
+
+	@Autowired
+	private IMaeTablaDetService maeTablaDetService;
+	
+	@GetMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarById(@PathVariable Integer id) {
+<span class="nc" id="L36">		MaeTablaDet tablaDet = null;</span>
+<span class="nc" id="L37">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L40">			tablaDet = maeTablaDetService.BuscarById(id);</span>
+<span class="nc" id="L41">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L42">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L43">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L44">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L46">		}</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		if(tablaDet.getId() == null) {</span>
+<span class="nc" id="L48">			response.put(&quot;mensaje&quot;, &quot;La Tabla : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L49">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+<span class="nc" id="L51">		return new ResponseEntity&lt;MaeTablaDet&gt;(tablaDet,HttpStatus.OK);		</span>
+	}
+	
+	@GetMapping(&quot;/lista/{tabla}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAllByTabla(@PathVariable Integer tabla){
+<span class="nc" id="L56">		List&lt;MaeTablaDet&gt; tablaDet= null;</span>
+<span class="nc" id="L57">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L60">			tablaDet = maeTablaDetService.BuscarAllByTabla(tabla);</span>
+<span class="nc" id="L61">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L62">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L63">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L64">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L66">		}</span>
+<span class="nc" id="L67">		return new ResponseEntity&lt;List&lt;MaeTablaDet&gt;&gt;(tablaDet,HttpStatus.OK);</span>
+	}		
+	/*************************************************/
+	@GetMapping(&quot;/listaByTipo/{compania}/{tipo}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarByCompaniaTipo(@PathVariable Integer compania,@PathVariable String tipo){
+<span class="nc" id="L72">		List&lt;MaeTablaDet&gt; tablaDet = null;</span>
+<span class="nc" id="L73">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L76">			TablaGeneral tabla = new TablaGeneral();</span>
+<span class="nc" id="L77">			String tipoTabla = tabla.getTipoTabla(tipo);</span>
+
+			//tablaDet = maeTablaDetService.BuscarByCompaniaTipo(compania,tipo);
+<span class="nc" id="L80">			tablaDet = maeTablaDetService.BuscarByCompaniaTipo(compania,tipoTabla);</span>
+<span class="nc" id="L81">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L82">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L83">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L84">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L86">		}</span>
+<span class="nc" id="L87">		return new ResponseEntity&lt;List&lt;MaeTablaDet&gt;&gt;(tablaDet,HttpStatus.OK);</span>
+	}
+	
+	/*****************************************************************/
+	@PostMapping(&quot;&quot;)
+	public ResponseEntity&lt;?&gt; create(@RequestBody MaeTablaDet tablaDet) {
+<span class="nc" id="L93">		MaeTablaDet tablaDetNew = null;</span>
+<span class="nc" id="L94">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L97">			tablaDetNew = maeTablaDetService.save(tablaDet);</span>
+<span class="nc" id="L98">		}catch (DataAccessException e) {</span>
+<span class="nc" id="L99">			response.put(&quot;mensaje&quot;, &quot;Error al realizar el insert en la base de datos&quot;);</span>
+<span class="nc" id="L100">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L101">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L102">		}</span>
+		
+<span class="nc" id="L104">		response.put(&quot;mensaje&quot;, &quot;La Tabla ha sido creada con exito!&quot;);		</span>
+<span class="nc" id="L105">		response.put(&quot;Tabla&quot;, tablaDetNew);</span>
+<span class="nc" id="L106">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}	
+	
+	@PutMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; update(@RequestBody MaeTablaDet tablaDet,@PathVariable Integer id) {
+<span class="nc" id="L111">		MaeTablaDet tablaDetActual = maeTablaDetService.BuscarById(id);</span>
+<span class="nc" id="L112">		MaeTablaDet tablaDetUpdated = null;</span>
+<span class="nc" id="L113">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+<span class="nc bnc" id="L115" title="All 2 branches missed.">		if(tablaDetActual == null) {</span>
+<span class="nc" id="L116">			response.put(&quot;mensaje&quot;, &quot;Error: no se pudo editar, La Tabla : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L117">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+		try {
+<span class="nc" id="L120">			tablaDetActual.setIdTabla(tablaDet.getIdTabla());</span>
+<span class="nc" id="L121">			tablaDetActual.setCodigo(tablaDet.getCodigo());</span>
+<span class="nc" id="L122">			tablaDetActual.setNombre(tablaDet.getNombre());</span>
+<span class="nc" id="L123">			tablaDetActual.setValorIni(tablaDet.getValorIni());</span>
+<span class="nc" id="L124">			tablaDetActual.setValorFin(tablaDet.getValorFin());			</span>
+<span class="nc" id="L125">			tablaDetActual.setIndVisible(tablaDet.getIndVisible());</span>
+			
+<span class="nc" id="L127">			tablaDetUpdated = maeTablaDetService.save(tablaDetActual);</span>
+			
+<span class="nc" id="L129">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L130">			response.put(&quot;mensaje&quot;, &quot;Error al actualizar la tabla en la base de datos&quot;);</span>
+<span class="nc" id="L131">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L132">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L133">		}</span>
+<span class="nc" id="L134">		response.put(&quot;mensaje&quot;, &quot;La tabla ha sido actualizado con exito!&quot;);		</span>
+<span class="nc" id="L135">		response.put(&quot;Tabla&quot;, tablaDetUpdated);</span>
+<span class="nc" id="L136">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}
+
+	@PutMapping(&quot;/saveAll&quot;)
+	public ResponseEntity&lt;?&gt; updateAll(@RequestBody List&lt;MaeTablaDet&gt; tablaDet) {
+<span class="nc" id="L141">		  Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L142">		  List&lt;MaeTablaDet&gt; tablaDetEntities = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L144" title="All 2 branches missed.">		    for (MaeTablaDet detalle : tablaDet) {</span>
+//		    	tablaDetEntities.add(dtoToEntity(detalle));
+<span class="nc" id="L146">		    	tablaDetEntities.add(detalle);		    	</span>
+<span class="nc" id="L147">		    }</span>
+		/*
+		if (tablaDetEntities == null) {
+			response.put(&quot;mensaje&quot;, &quot;Error: no se pudo editar, El detalle de la tabla no se pudo armar&quot;);
+			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);
+		}
+		*/
+		try {
+//		    Iterable&lt;MaeTablaDet&gt; persistedTablaDet = maeTablaDetService.saveAll(tablaDetEntities);	
+<span class="nc" id="L156">				maeTablaDetService.saveAll(tablaDetEntities);	</span>
+<span class="nc" id="L157">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L158">			response.put(&quot;mensaje&quot;, &quot;Error al actualizar la tabla en la base de datos&quot;);</span>
+<span class="nc" id="L159">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L160">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L161">		}</span>
+<span class="nc" id="L162">		response.put(&quot;mensaje&quot;, &quot;La tabla detalle ha sido actualizado con exito!&quot;);		</span>
+<span class="nc" id="L163">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}
+
+
+	/*************  ELIMINACION *******************************************************************/
+
+	@DeleteMapping(&quot;/delete/{id}&quot;)
+	public ResponseEntity&lt;?&gt; delete(@PathVariable Integer id) {
+<span class="nc" id="L171">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L174">			maeTablaDetService.delete(id);			</span>
+<span class="nc" id="L175">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L176">			response.put(&quot;mensaje&quot;, &quot;Error al eliminar la tabla en la base de datos&quot;);</span>
+<span class="nc" id="L177">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L178">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L179">		}</span>
+<span class="nc" id="L180">		response.put(&quot;mensaje&quot;, &quot;La tabla ha sido eliminado con exito!&quot;);		</span>
+<span class="nc" id="L181">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.OK);		</span>
+	}		
+	
+	@PutMapping(&quot;/deleteAll&quot;)
+	public ResponseEntity&lt;?&gt; deleteAll(@RequestBody List&lt;MaeTablaDet&gt; tablaDet) {
+<span class="nc" id="L186">		  Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L187">		  List&lt;MaeTablaDet&gt; tablaDetEntities = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L189" title="All 2 branches missed.">		    for (MaeTablaDet detalle : tablaDet) {</span>
+<span class="nc" id="L190">		    	tablaDetEntities.add(detalle);		    	</span>
+<span class="nc" id="L191">		    }</span>
+		/*
+		if (tablaDetEntities == null) {
+			response.put(&quot;mensaje&quot;, &quot;Error: no se pudo editar, El detalle de la tabla no se pudo armar&quot;);
+			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);
+		}
+		*/
+		try {
+<span class="nc" id="L199">		    maeTablaDetService.deleteAll(tablaDetEntities);	</span>
+		    
+<span class="nc" id="L201">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L202">			response.put(&quot;mensaje&quot;, &quot;Error al eliminar la tabla en la base de datos&quot;);</span>
+<span class="nc" id="L203">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L204">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L205">		}</span>
+<span class="nc" id="L206">		response.put(&quot;mensaje&quot;, &quot;La tabla detalle ha sido eliminado con exito!&quot;);		</span>
+<span class="nc" id="L207">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}
+	
+	/*
+	https://stackoverflow.com/questions/72040490/how-to-save-array-of-object-in-sprig-boot-with-crudrepository
+	https://www.baeldung.com/spring-data-save-saveall
+	
+		*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

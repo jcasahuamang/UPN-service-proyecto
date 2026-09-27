@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AWConfigurationServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.models.services.serviceimpl</a> &gt; <span class="el_source">AWConfigurationServiceImpl.java</span></div><h1>AWConfigurationServiceImpl.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.models.services.serviceimpl;
+
+import java.time.Duration;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tech.application.rest.models.dao.AWConfigurationRepository;
+import com.tech.application.rest.models.entity.AWConfiguration;
+import com.tech.application.rest.models.services.service.AWConfigurationService;
+
+@Service
+<span class="fc" id="L14">public class AWConfigurationServiceImpl implements AWConfigurationService {</span>
+    
+    @Autowired
+    private AWConfigurationRepository configuracionRepository;
+
+    private static final String DEFAULT_DURATION = &quot;60&quot;; // Valor por defecto en minutos
+    private static final String CLAVE_DURACION_BLOQUEO = &quot;DURACION_BLOQUEO&quot;;
+    private static final String CLAVE_MAX_ATTEMPTS = &quot;MAX_INTENTOS&quot;;
+
+    @Override
+    public Duration obtenerDuracionBloqueo() {
+        // Buscar en la base de datos
+<span class="nc" id="L26">        Optional&lt;AWConfiguration&gt; config = configuracionRepository.findByClave(CLAVE_DURACION_BLOQUEO);</span>
+
+        // Si se encuentra, convertir el valor en minutos a Duration
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (config.isPresent()) {</span>
+            try {
+<span class="nc" id="L31">                return Duration.ofMinutes(Long.parseLong(config.get().getValor()));</span>
+<span class="nc" id="L32">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L33">                e.printStackTrace();</span>
+<span class="nc" id="L34">                throw new IllegalStateException(</span>
+<span class="nc" id="L35">                        &quot;El valor de DURACION_BLOQUEO no es válido: &quot; + config.get().getValor());</span>
+            }
+        }
+
+        // Si no se encuentra, devolver el valor por defecto
+<span class="nc" id="L40">        return Duration.ofMinutes(Long.parseLong(DEFAULT_DURATION));</span>
+    }
+
+    @Override
+    public Integer obtenerMaxAttempts() {
+<span class="nc" id="L45">        Optional&lt;AWConfiguration&gt; config = configuracionRepository.findByClave(CLAVE_MAX_ATTEMPTS);</span>
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (config.isPresent()) {</span>
+            try {
+<span class="nc" id="L49">                return Integer.parseInt(config.get().getValor());</span>
+<span class="nc" id="L50">            } catch (Exception e) {</span>
+<span class="nc" id="L51">                e.printStackTrace();</span>
+<span class="nc" id="L52">                throw new IllegalStateException(&quot;El valor de MAX_INTENTOS no es válido: &quot; + config.get().getValor());</span>
+            }
+        }
+
+<span class="nc" id="L56">        return 3;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkmVacacionesController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.controllers</a> &gt; <span class="el_source">SkmVacacionesController.java</span></div><h1>SkmVacacionesController.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.controllers;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tech.application.rest.models.entity.IRelacionVacaciones;
+import com.tech.application.rest.models.entity.SkmVacaciones;
+import com.tech.application.rest.models.entity.ValidacionRespuesta;
+import com.tech.application.rest.models.services.service.ISkmVacacionesService;
+
+@CrossOrigin(origins = &quot;*&quot;)
+@RestController
+@RequestMapping(&quot;/vacacion&quot;)
+<span class="fc" id="L29">public class SkmVacacionesController {</span>
+    @Autowired
+    private ISkmVacacionesService skmVacacionesService;
+    
+    @GetMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarById(@PathVariable Long id) {
+<span class="nc" id="L35">		SkmVacaciones vacacion= null;</span>
+<span class="nc" id="L36">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L39">			vacacion = skmVacacionesService.BuscarById(id);</span>
+<span class="nc" id="L40">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L41">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L42">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L43">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L45">		}</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">		if(vacacion.getId() == null) {</span>
+<span class="nc" id="L47">			response.put(&quot;mensaje&quot;, &quot;Las vacaciones : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L48">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+<span class="nc" id="L50">		return new ResponseEntity&lt;SkmVacaciones&gt;(vacacion,HttpStatus.OK);		</span>
+	}
+
+    @GetMapping(&quot;/all&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAll(){
+<span class="nc" id="L55">		List&lt;SkmVacaciones&gt; vacacion= null;</span>
+<span class="nc" id="L56">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L59">			vacacion = skmVacacionesService.BuscarAll();</span>
+<span class="nc" id="L60">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L61">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L62">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L63">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L65">		}</span>
+<span class="nc" id="L66">		return new ResponseEntity&lt;List&lt;SkmVacaciones&gt;&gt;(vacacion,HttpStatus.OK);</span>
+	}
+
+    
+	@GetMapping(&quot;/all/{compania}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAllByCompania(@PathVariable String compania){
+<span class="nc" id="L72">		List&lt;SkmVacaciones&gt; vacacion = null;</span>
+<span class="nc" id="L73">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L76">			vacacion = skmVacacionesService.BuscarByEmpresa(compania);</span>
+<span class="nc" id="L77">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L78">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L79">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L80">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L82">		}</span>
+<span class="nc" id="L83">		return new ResponseEntity&lt;List&lt;SkmVacaciones&gt;&gt;(vacacion,HttpStatus.OK);</span>
+	}
+
+    @GetMapping(&quot;/all/{compania}/{personal}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAllByCompaniaPersonal(
+        @PathVariable String compania,
+        @PathVariable String personal){
+<span class="nc" id="L90">		List&lt;SkmVacaciones&gt; vacacion = null;</span>
+<span class="nc" id="L91">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L94">			vacacion = skmVacacionesService.BuscarByEmpresaPersonal(compania,personal);</span>
+<span class="nc" id="L95">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L96">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L97">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L98">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L100">		}</span>
+<span class="nc" id="L101">		return new ResponseEntity&lt;List&lt;SkmVacaciones&gt;&gt;(vacacion,HttpStatus.OK);</span>
+	}
+
+	
+	@GetMapping(&quot;/valida/{empresa}/{personal}/{tiporegistro}/{idvac}/{fecinicio}/{fecfin}&quot;)
+	public ResponseEntity&lt;?&gt; ValidaVacaciones(
+				@PathVariable String empresa,
+				@PathVariable String personal,
+				@PathVariable String tiporegistro,
+				@PathVariable Long idvac,
+				@PathVariable String fecinicio,
+				@PathVariable String fecfin){
+		
+<span class="nc" id="L114">		List&lt;ValidacionRespuesta&gt; validacion= null;</span>
+<span class="nc" id="L115">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L118">			validacion = skmVacacionesService.ProcValidaVacaciones(empresa,personal,tiporegistro,idvac,fecinicio,fecfin);</span>
+<span class="nc" id="L119">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L120">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L121">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L122">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L124">		}</span>
+<span class="nc" id="L125">		return new ResponseEntity&lt;List&lt;ValidacionRespuesta&gt;&gt;(validacion,HttpStatus.OK);</span>
+	}		
+
+	@GetMapping(&quot;/consulta/{empresa}/{planilla}/{estado}/{personal}/{usuario}&quot;)
+	public ResponseEntity&lt;?&gt; ConsultaVacaciones(
+				@PathVariable String empresa,
+				@PathVariable String planilla,
+				@PathVariable String estado,
+				@PathVariable String personal,
+				@PathVariable String usuario){
+		
+<span class="nc" id="L136">		List&lt;IRelacionVacaciones&gt; validacion= null;</span>
+<span class="nc" id="L137">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L140">			validacion = skmVacacionesService.ProcConsultaVacaciones(empresa,planilla,estado,personal,usuario);</span>
+<span class="nc" id="L141">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L142">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L143">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L144">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L146">		}</span>
+<span class="nc" id="L147">		return new ResponseEntity&lt;List&lt;IRelacionVacaciones&gt;&gt;(validacion,HttpStatus.OK);</span>
+	}		
+
+
+    /*************************************************************************************************/
+	@PostMapping(&quot;&quot;)
+	public ResponseEntity&lt;?&gt; create(@RequestBody SkmVacaciones vacacion) {
+<span class="nc" id="L154">		SkmVacaciones vacacionNew = null;</span>
+<span class="nc" id="L155">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L158">			vacacionNew = skmVacacionesService.save(vacacion);</span>
+<span class="nc" id="L159">		}catch (DataAccessException e) {</span>
+<span class="nc" id="L160">			response.put(&quot;mensaje&quot;, &quot;Error al realizar el insert en la base de datos&quot;);</span>
+<span class="nc" id="L161">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L162">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L163">		}</span>
+		
+<span class="nc" id="L165">		response.put(&quot;mensaje&quot;, &quot;Las vacaciones han sido registradas con exito!&quot;);		</span>
+<span class="nc" id="L166">		response.put(&quot;Anuncio&quot;, vacacionNew);</span>
+<span class="nc" id="L167">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+
+	}	
+
+    @PutMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; update(@RequestBody SkmVacaciones vacacion,@PathVariable Long id) {
+<span class="nc" id="L173">		SkmVacaciones vacacionActual = skmVacacionesService.BuscarById(id);</span>
+<span class="nc" id="L174">		SkmVacaciones vacacionUpdated = null;</span>
+<span class="nc" id="L175">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+<span class="nc bnc" id="L177" title="All 2 branches missed.">		if(vacacionActual == null) {</span>
+<span class="nc" id="L178">			response.put(&quot;mensaje&quot;, &quot;Error: no se pudo editar, Vacaciones : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L179">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+		try {
+<span class="nc" id="L182">			vacacionActual.setEmpresa(vacacion.getEmpresa());</span>
+<span class="nc" id="L183">			vacacionActual.setCodpersonal(vacacion.getCodpersonal());</span>
+<span class="nc" id="L184">			vacacionActual.setFecinicio(vacacion.getFecinicio());</span>
+<span class="nc" id="L185">			vacacionActual.setFecfin(vacacion.getFecfin());</span>
+<span class="nc" id="L186">			vacacionActual.setNumdias(vacacion.getNumdias());</span>
+<span class="nc" id="L187">			vacacionActual.setObservacion(vacacion.getObservacion());</span>
+<span class="nc" id="L188">			vacacionActual.setTipo(vacacion.getTipo());</span>
+<span class="nc" id="L189">			vacacionActual.setEstado(vacacion.getEstado());</span>
+<span class="nc" id="L190">			vacacionActual.setUsucreacion(vacacion.getUsucreacion());</span>
+<span class="nc" id="L191">			vacacionActual.setFeccreacion(vacacion.getFeccreacion());</span>
+<span class="nc" id="L192">			vacacionActual.setCodigotransferencia(vacacion.getCodigotransferencia());</span>
+
+			
+<span class="nc" id="L195">			vacacionUpdated = skmVacacionesService.save(vacacionActual);</span>
+			
+<span class="nc" id="L197">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L198">			response.put(&quot;mensaje&quot;, &quot;Error al actualizar las vacacionens en la base de datos&quot;);</span>
+<span class="nc" id="L199">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L200">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L201">		}</span>
+<span class="nc" id="L202">		response.put(&quot;mensaje&quot;, &quot;Las vacaciones han sido actualizado con exito!&quot;);		</span>
+<span class="nc" id="L203">		response.put(&quot;Anuncio&quot;, vacacionUpdated);</span>
+<span class="nc" id="L204">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}
+
+	@DeleteMapping(&quot;/delete/{id}&quot;)
+	public ResponseEntity&lt;?&gt; delete(@PathVariable Long id) {
+<span class="nc" id="L209">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L212">			skmVacacionesService.delete(id);			</span>
+<span class="nc" id="L213">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L214">			response.put(&quot;mensaje&quot;, &quot;Error al eliminar las vacaciones de la base de datos&quot;);</span>
+<span class="nc" id="L215">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L216">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L217">		}</span>
+<span class="nc" id="L218">		response.put(&quot;mensaje&quot;, &quot;Las vacaciones ha sido eliminado con exito!&quot;);		</span>
+<span class="nc" id="L219">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.OK);		</span>
+	}		
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

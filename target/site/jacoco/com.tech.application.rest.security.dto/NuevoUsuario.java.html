@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NuevoUsuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.security.dto</a> &gt; <span class="el_source">NuevoUsuario.java</span></div><h1>NuevoUsuario.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.security.dto;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+<span class="nc" id="L9">public class NuevoUsuario {</span>
+
+	@NotBlank
+	private String primer_nombre;
+
+	private String segundo_nombre;
+	@NotBlank
+	private String apellidos;
+
+	@NotBlank
+	private String nombreUsuario;
+	
+	@Email
+	@NotBlank
+	private String email;	
+	@NotBlank
+	private String password;
+	@NotNull
+	private Long id_cliente;
+	@NotNull
+	private Integer tipo;
+	@NotNull
+	private Integer estado;
+	
+<span class="nc" id="L33">	private Set&lt;String&gt; roles = new HashSet&lt;&gt;();</span>
+
+	public String getPrimer_nombre() {
+<span class="nc" id="L36">		return primer_nombre;</span>
+	}
+
+	public void setPrimer_nombre(String primer_nombre) {
+<span class="nc" id="L40">		this.primer_nombre = primer_nombre;</span>
+<span class="nc" id="L41">	}</span>
+
+	public String getSegundo_nombre() {
+<span class="nc" id="L44">		return segundo_nombre;</span>
+	}
+
+	public void setSegundo_nombre(String segundo_nombre) {
+<span class="nc" id="L48">		this.segundo_nombre = segundo_nombre;</span>
+<span class="nc" id="L49">	}</span>
+
+	public String getApellidos() {
+<span class="nc" id="L52">		return apellidos;</span>
+	}
+
+	public void setApellidos(String apellidos) {
+<span class="nc" id="L56">		this.apellidos = apellidos;</span>
+<span class="nc" id="L57">	}</span>
+
+	public String getNombreUsuario() {
+<span class="nc" id="L60">		return nombreUsuario;</span>
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+<span class="nc" id="L64">		this.nombreUsuario = nombreUsuario;</span>
+<span class="nc" id="L65">	}</span>
+
+	public String getEmail() {
+<span class="nc" id="L68">		return email;</span>
+	}
+
+	public void setEmail(String email) {
+<span class="nc" id="L72">		this.email = email;</span>
+<span class="nc" id="L73">	}</span>
+
+	public String getPassword() {
+<span class="nc" id="L76">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="nc" id="L80">		this.password = password;</span>
+<span class="nc" id="L81">	}</span>
+
+	public Long getId_cliente() {
+<span class="nc" id="L84">		return id_cliente;</span>
+	}
+
+	public void setId_cliente(Long id_cliente) {
+<span class="nc" id="L88">		this.id_cliente = id_cliente;</span>
+<span class="nc" id="L89">	}</span>
+
+	public Integer getTipo() {
+<span class="nc" id="L92">		return tipo;</span>
+	}
+
+	public void setTipo(Integer tipo) {
+<span class="nc" id="L96">		this.tipo = tipo;</span>
+<span class="nc" id="L97">	}</span>
+
+	public Integer getEstado() {
+<span class="nc" id="L100">		return estado;</span>
+	}
+
+	public void setEstado(Integer estado) {
+<span class="nc" id="L104">		this.estado = estado;</span>
+<span class="nc" id="L105">	}</span>
+
+	public Set&lt;String&gt; getRoles() {
+<span class="nc" id="L108">		return roles;</span>
+	}
+
+	public void setRoles(Set&lt;String&gt; roles) {
+<span class="nc" id="L112">		this.roles = roles;</span>
+<span class="nc" id="L113">	}</span>
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

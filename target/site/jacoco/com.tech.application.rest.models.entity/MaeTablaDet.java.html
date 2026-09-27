@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MaeTablaDet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.models.entity</a> &gt; <span class="el_source">MaeTablaDet.java</span></div><h1>MaeTablaDet.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.models.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+<span class="fc" id="L14">@NoArgsConstructor</span>
+@Getter
+<span class="nc" id="L16">@Setter</span>
+@Entity
+@Table(name=&quot;MAE_TABLA_DET&quot;)
+public class MaeTablaDet {
+
+	@Column(name=&quot;id_tabla&quot;,nullable=false)
+<span class="nc" id="L22">	private Integer idTabla;</span>
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name=&quot;id_tabla_det&quot;,nullable=false)	
+<span class="nc" id="L27">	private Integer id;</span>
+	
+	@Column(name=&quot;codigo&quot;,nullable=false,length=5)			
+<span class="nc" id="L30">	private String codigo;	</span>
+	
+	@Column(name=&quot;nombre&quot;,nullable=false,length=250)			
+<span class="nc" id="L33">	private String nombre;	</span>
+	
+	@Column(name=&quot;valor_ini&quot;,nullable=true)			
+<span class="nc" id="L36">	private Float valorIni;	</span>
+	
+	@Column(name=&quot;valor_fin&quot;,nullable=true)			
+<span class="nc" id="L39">	private Float valorFin;		</span>
+
+	@Column(name=&quot;ind_visible&quot;,nullable=true,length=2)			
+<span class="nc" id="L42">	private String indVisible;</span>
+
+	
+	public MaeTablaDet(Integer idTabla, String codigo, String nombre, Float valorIni, Float valorFin,
+<span class="nc" id="L46">			String indVisible) {</span>
+<span class="nc" id="L47">		this.idTabla = idTabla;</span>
+<span class="nc" id="L48">		this.codigo = codigo;</span>
+<span class="nc" id="L49">		this.nombre = nombre;</span>
+<span class="nc" id="L50">		this.valorIni = valorIni;</span>
+<span class="nc" id="L51">		this.valorFin = valorFin;</span>
+<span class="nc" id="L52">		this.indVisible = indVisible;</span>
+<span class="nc" id="L53">	}</span>
+	
+    public static MaeTablaDet dtoToEntity(MaeTablaDet detalle){
+<span class="nc" id="L56">    	MaeTablaDet detalleEntity = new MaeTablaDet();</span>
+    	
+<span class="nc" id="L58">    	detalleEntity.setIdTabla(detalle.getIdTabla());</span>
+<span class="nc" id="L59">    	detalleEntity.setId(detalle.getId());</span>
+<span class="nc" id="L60">    	detalleEntity.setCodigo(detalle.getCodigo());</span>
+<span class="nc" id="L61">    	detalleEntity.setNombre(detalle.getNombre());    	</span>
+<span class="nc" id="L62">    	detalleEntity.setValorIni(detalle.getValorIni());</span>
+<span class="nc" id="L63">    	detalleEntity.setValorFin(detalle.getValorFin());</span>
+<span class="nc" id="L64">    	detalleEntity.setIndVisible(detalle.getIndVisible());    	</span>
+<span class="nc" id="L65">        return detalleEntity;</span>
+    }	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

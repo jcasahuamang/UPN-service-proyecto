@@ -1,0 +1,6 @@
+projectKey=kiosko-backend
+serverUrl=http://localhost:9000
+serverVersion=26.9.0.129388
+dashboardUrl=http://localhost:9000/dashboard?id=kiosko-backend
+ceTaskId=e88de68a-913c-47b9-9227-00ce4020667a
+ceTaskUrl=http://localhost:9000/api/ce/task?id=e88de68a-913c-47b9-9227-00ce4020667a

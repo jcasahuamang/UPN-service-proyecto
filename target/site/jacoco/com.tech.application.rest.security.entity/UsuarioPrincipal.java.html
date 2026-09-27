@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioPrincipal.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.security.entity</a> &gt; <span class="el_source">UsuarioPrincipal.java</span></div><h1>UsuarioPrincipal.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.security.entity;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+//import javax.validation.constraints.NotNull;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UsuarioPrincipal implements UserDetails {
+	
+
+	private String nombreUsuario;
+	private String desUsuario;
+	private String password;
+
+	private String email;	
+	private String estado;
+
+	private String codEmpresa;
+	private String codPersonal;
+	private String admLevel;
+
+	private Collection&lt;? extends GrantedAuthority&gt; authorities;
+
+	public UsuarioPrincipal(
+				String nombreUsuario,String desUsuario,
+				String password, String email,
+				String estado,String codEmpresa,String codPersonal,
+				String admLevel,
+<span class="nc" id="L34">			Collection&lt;? extends GrantedAuthority&gt; authorities) {</span>
+
+<span class="nc" id="L36">				this.nombreUsuario = nombreUsuario;</span>
+<span class="nc" id="L37">				this.desUsuario = desUsuario;</span>
+<span class="nc" id="L38">				this.password = password;</span>
+<span class="nc" id="L39">				this.email = email;</span>
+<span class="nc" id="L40">				this.estado = estado;</span>
+<span class="nc" id="L41">				this.codEmpresa = codEmpresa;</span>
+<span class="nc" id="L42">				this.codPersonal = codPersonal;</span>
+<span class="nc" id="L43">				this.admLevel = admLevel;</span>
+
+<span class="nc" id="L45">		this.authorities = authorities;</span>
+<span class="nc" id="L46">	}</span>
+
+	public static UsuarioPrincipal build(Usuario usuario) {
+		
+<span class="nc" id="L50">		List&lt;GrantedAuthority&gt; authorities = </span>
+<span class="nc" id="L51">				usuario.getRoles().stream().map(rol -&gt; new SimpleGrantedAuthority(rol</span>
+<span class="nc" id="L52">						.getRolNombre().name())).collect(Collectors.toList());</span>
+		
+<span class="nc" id="L54">			return new UsuarioPrincipal(usuario.getNombreUsuario(),</span>
+<span class="nc" id="L55">										usuario.getDesUsuario(),</span>
+<span class="nc" id="L56">										usuario.getPassword(),</span>
+<span class="nc" id="L57">										usuario.getEmail(),</span>
+<span class="nc" id="L58">										usuario.getEstado(),</span>
+<span class="nc" id="L59">										usuario.getCodEmpresa(),</span>
+<span class="nc" id="L60">										usuario.getCodPersonal(),</span>
+<span class="nc" id="L61">										usuario.getAdmLevel(),</span>
+										authorities);
+	}
+	
+	@Override
+	public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+		//  Auto-generated method stub
+<span class="nc" id="L68">		return authorities;</span>
+	}
+
+	@Override
+	public String getPassword() {
+		//  Auto-generated method stub
+<span class="nc" id="L74">		return password;</span>
+	}
+
+	@Override
+	public String getUsername() {
+		//  Auto-generated method stub
+<span class="nc" id="L80">		return nombreUsuario;</span>
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		//  Auto-generated method stub
+<span class="nc" id="L86">		return true;</span>
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		//  Auto-generated method stub
+<span class="nc" id="L92">		return true;</span>
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		//  Auto-generated method stub
+<span class="nc" id="L98">		return true;</span>
+	}
+
+	@Override
+	public boolean isEnabled() {
+		//  Auto-generated method stub
+<span class="nc" id="L104">		return true;</span>
+	}
+
+	public String getDesUsuario() {
+<span class="nc" id="L108">		return desUsuario;</span>
+	}
+
+	public String getEmail() {
+<span class="nc" id="L112">		return email;</span>
+	}
+	
+	public String getEstado() {
+<span class="nc" id="L116">		return estado;</span>
+	}
+	
+	public String getCodEmpresa() {
+<span class="nc" id="L120">		return codEmpresa;</span>
+	}
+
+	public String getCodPersonal() {
+<span class="nc" id="L124">		return codPersonal;</span>
+	}
+
+	public String getAdmLevel() {
+<span class="nc" id="L128">		return admLevel;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

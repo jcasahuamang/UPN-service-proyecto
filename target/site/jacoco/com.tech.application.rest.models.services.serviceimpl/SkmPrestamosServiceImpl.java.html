@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkmPrestamosServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.models.services.serviceimpl</a> &gt; <span class="el_source">SkmPrestamosServiceImpl.java</span></div><h1>SkmPrestamosServiceImpl.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.models.services.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.tech.application.rest.models.dao.ISkmPrestamosDao;
+import com.tech.application.rest.models.entity.IRelacionPrestamos;
+import com.tech.application.rest.models.entity.SkmPrestamos;
+import com.tech.application.rest.models.entity.ValidacionRespuesta;
+import com.tech.application.rest.models.services.service.ISkmPrestamosService;
+
+@Service
+<span class="fc" id="L16">public class SkmPrestamosServiceImpl implements ISkmPrestamosService {</span>
+
+    @Autowired
+    private ISkmPrestamosDao skmPrestamosDao;
+    
+    @Override
+    public SkmPrestamos BuscarById(Long id) {
+<span class="nc" id="L23">        return skmPrestamosDao.BuscarById(id);</span>
+    }
+
+    @Override
+    public List&lt;SkmPrestamos&gt; BuscarAll() {
+<span class="nc" id="L28">        return skmPrestamosDao.BuscarAll();  </span>
+    }
+
+    @Override
+    public List&lt;SkmPrestamos&gt; BuscarByEmpresa(String empresa) {
+<span class="nc" id="L33">        return skmPrestamosDao.BuscarByEmpresa(empresa);</span>
+    }
+
+    @Override
+    public List&lt;SkmPrestamos&gt; BuscarByEmpresaPersonal(String empresa, String personal) {
+<span class="nc" id="L38">        return skmPrestamosDao.BuscarByEmpresaPersonal(empresa, personal);</span>
+    }
+
+    
+    @Override
+	@Transactional(readOnly = true)	
+	public List&lt;ValidacionRespuesta&gt; ProcValidaPrestamos(String empresa,String personal,String tiporegistro,Long id,String fecsolicitud,String moneda,Double importe,Integer cuota) {
+<span class="nc" id="L45">        return skmPrestamosDao.execProcValidaPrestamos( empresa, personal, tiporegistro,id, fecsolicitud,moneda, importe,cuota);</span>
+	}
+
+    @Override
+	@Transactional(readOnly = true)	
+	public List&lt;IRelacionPrestamos&gt; ProcConsultaPrestamos(String empresa,String planilla,String estado,String personal,String usuario) {
+<span class="nc" id="L51">        return skmPrestamosDao.execConsultaPrestamos(empresa,planilla,estado, personal,usuario);</span>
+	}   
+    
+	@Override
+	@Transactional
+	public SkmPrestamos save(SkmPrestamos prestamos) {
+<span class="nc" id="L57">		return skmPrestamosDao.save(prestamos);</span>
+	}
+	
+	@Override
+	@Transactional
+	public void delete(Long id) {
+<span class="nc" id="L63">		skmPrestamosDao.deleteById(id);</span>
+<span class="nc" id="L64">	}</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

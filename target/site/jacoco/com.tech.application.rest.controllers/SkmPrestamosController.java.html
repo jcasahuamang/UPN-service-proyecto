@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkmPrestamosController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service-kiosko-upn</a> &gt; <a href="index.source.html" class="el_package">com.tech.application.rest.controllers</a> &gt; <span class="el_source">SkmPrestamosController.java</span></div><h1>SkmPrestamosController.java</h1><pre class="source lang-java linenums">package com.tech.application.rest.controllers;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tech.application.rest.models.entity.IRelacionPrestamos;
+import com.tech.application.rest.models.entity.SkmPrestamos;
+import com.tech.application.rest.models.entity.ValidacionRespuesta;
+import com.tech.application.rest.models.services.service.ISkmPrestamosService;
+
+@CrossOrigin(origins = &quot;*&quot;)
+@RestController
+@RequestMapping(&quot;/prestamo&quot;)
+<span class="fc" id="L29">public class SkmPrestamosController {</span>
+    
+    
+    @Autowired
+    private ISkmPrestamosService skmPrestamosService;
+    
+    @GetMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarById(@PathVariable Long id) {
+<span class="nc" id="L37">		SkmPrestamos prestamo= null;</span>
+<span class="nc" id="L38">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L41">			prestamo = skmPrestamosService.BuscarById(id);</span>
+<span class="nc" id="L42">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L43">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L44">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L45">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L47">		}</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">		if(prestamo.getId() == null) {</span>
+<span class="nc" id="L49">			response.put(&quot;mensaje&quot;, &quot;El prestamo : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L50">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+<span class="nc" id="L52">		return new ResponseEntity&lt;SkmPrestamos&gt;(prestamo,HttpStatus.OK);		</span>
+	}
+
+    @GetMapping(&quot;/all&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAll(){
+<span class="nc" id="L57">		List&lt;SkmPrestamos&gt; prestamo= null;</span>
+<span class="nc" id="L58">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L61">			prestamo = skmPrestamosService.BuscarAll();</span>
+<span class="nc" id="L62">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L63">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L64">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L65">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L67">		}</span>
+<span class="nc" id="L68">		return new ResponseEntity&lt;List&lt;SkmPrestamos&gt;&gt;(prestamo,HttpStatus.OK);</span>
+	}
+
+    
+	@GetMapping(&quot;/all/{compania}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAllByCompania(@PathVariable String compania){
+<span class="nc" id="L74">		List&lt;SkmPrestamos&gt; prestamo = null;</span>
+<span class="nc" id="L75">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L78">			prestamo = skmPrestamosService.BuscarByEmpresa(compania);</span>
+<span class="nc" id="L79">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L80">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L81">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L82">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L84">		}</span>
+<span class="nc" id="L85">		return new ResponseEntity&lt;List&lt;SkmPrestamos&gt;&gt;(prestamo,HttpStatus.OK);</span>
+	}
+
+    @GetMapping(&quot;/all/{compania}/{personal}&quot;)
+	public ResponseEntity&lt;?&gt; BuscarAllByCompaniaPersonal(
+        @PathVariable String compania,
+        @PathVariable String personal){
+<span class="nc" id="L92">		List&lt;SkmPrestamos&gt; prestamo = null;</span>
+<span class="nc" id="L93">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L96">			prestamo = skmPrestamosService.BuscarByEmpresaPersonal(compania,personal);</span>
+<span class="nc" id="L97">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L98">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L99">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L100">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L102">		}</span>
+<span class="nc" id="L103">		return new ResponseEntity&lt;List&lt;SkmPrestamos&gt;&gt;(prestamo,HttpStatus.OK);</span>
+	}
+
+	
+	@GetMapping(&quot;/valida/{empresa}/{personal}/{tiporegistro}/{id}/{fecsolicitud}/{moneda}/{importe}/{cuota}&quot;)
+	public ResponseEntity&lt;?&gt; ValidaPrestamos(
+				@PathVariable String empresa,
+				@PathVariable String personal,
+				@PathVariable String tiporegistro,
+				@PathVariable Long id,
+				@PathVariable String fecsolicitud,
+				@PathVariable String moneda,
+                @PathVariable Double importe,
+                @PathVariable Integer cuota){
+		
+<span class="nc" id="L118">		List&lt;ValidacionRespuesta&gt; validacion= null;</span>
+<span class="nc" id="L119">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L122">			validacion = skmPrestamosService.ProcValidaPrestamos(empresa,personal,tiporegistro,id,fecsolicitud,moneda,importe,cuota);</span>
+<span class="nc" id="L123">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L124">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L125">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L126">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L128">		}</span>
+<span class="nc" id="L129">		return new ResponseEntity&lt;List&lt;ValidacionRespuesta&gt;&gt;(validacion,HttpStatus.OK);</span>
+	}		
+
+	@GetMapping(&quot;/consulta/{empresa}/{planilla}/{estado}/{personal}/{usuario}&quot;)
+	public ResponseEntity&lt;?&gt; ConsultaPrestamos(
+				@PathVariable String empresa,
+				@PathVariable String planilla,
+				@PathVariable String estado,
+				@PathVariable String personal,
+				@PathVariable String usuario){
+		
+<span class="nc" id="L140">		List&lt;IRelacionPrestamos&gt; validacion= null;</span>
+<span class="nc" id="L141">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();		</span>
+		
+		try {
+<span class="nc" id="L144">			validacion = skmPrestamosService.ProcConsultaPrestamos(empresa,planilla,estado,personal,usuario);</span>
+<span class="nc" id="L145">		} catch(DataAccessException e) {</span>
+<span class="nc" id="L146">			response.put(&quot;mensaje&quot;, &quot;Error al realizar la consulta en la base de datos&quot;);</span>
+<span class="nc" id="L147">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L148">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+			
+<span class="nc" id="L150">		}</span>
+<span class="nc" id="L151">		return new ResponseEntity&lt;List&lt;IRelacionPrestamos&gt;&gt;(validacion,HttpStatus.OK);</span>
+	}			
+
+    /*************************************************************************************************/
+	@PostMapping(&quot;&quot;)
+	public ResponseEntity&lt;?&gt; create(@RequestBody SkmPrestamos prestamo) {
+<span class="nc" id="L157">		SkmPrestamos prestamoNew = null;</span>
+<span class="nc" id="L158">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L161">			prestamoNew = skmPrestamosService.save(prestamo);</span>
+<span class="nc" id="L162">		}catch (DataAccessException e) {</span>
+<span class="nc" id="L163">			response.put(&quot;mensaje&quot;, &quot;Error al realizar el insert en la base de datos&quot;);</span>
+<span class="nc" id="L164">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L165">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L166">		}</span>
+		
+<span class="nc" id="L168">		response.put(&quot;mensaje&quot;, &quot;El prestamo ha sido registrado con exito!&quot;);		</span>
+<span class="nc" id="L169">		response.put(&quot;Anuncio&quot;, prestamoNew);</span>
+<span class="nc" id="L170">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+
+	}	
+
+    @PutMapping(&quot;/{id}&quot;)
+	public ResponseEntity&lt;?&gt; update(@RequestBody SkmPrestamos prestamo,@PathVariable Long id) {
+<span class="nc" id="L176">		SkmPrestamos prestamoActual = skmPrestamosService.BuscarById(id);</span>
+<span class="nc" id="L177">		SkmPrestamos prestamoUpdated = null;</span>
+<span class="nc" id="L178">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+<span class="nc bnc" id="L180" title="All 2 branches missed.">		if(prestamoActual == null) {</span>
+<span class="nc" id="L181">			response.put(&quot;mensaje&quot;, &quot;Error: no se pudo editar, Prestamo : &quot;.concat(id.toString().concat(&quot; no existe en la base de datos!&quot;)));</span>
+<span class="nc" id="L182">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.NOT_FOUND);</span>
+		}
+		try {
+<span class="nc" id="L185">			prestamoActual.setEmpresa(prestamo.getEmpresa());</span>
+<span class="nc" id="L186">			prestamoActual.setCodpersonal(prestamo.getCodpersonal());</span>
+<span class="nc" id="L187">			prestamoActual.setTipo(prestamo.getTipo());</span>
+<span class="nc" id="L188">			prestamoActual.setFecsolicitud(prestamo.getFecsolicitud());</span>
+<span class="nc" id="L189">			prestamoActual.setMoneda(prestamo.getMoneda());</span>
+<span class="nc" id="L190">			prestamoActual.setImporte(prestamo.getImporte());</span>
+<span class="nc" id="L191">			prestamoActual.setCuotas(prestamo.getCuotas());</span>
+<span class="nc" id="L192">			prestamoActual.setObservacion(prestamo.getObservacion());</span>
+<span class="nc" id="L193">			prestamoActual.setEstado(prestamo.getEstado());</span>
+<span class="nc" id="L194">			prestamoActual.setUsucreacion(prestamo.getUsucreacion());</span>
+<span class="nc" id="L195">			prestamoActual.setFeccreacion(prestamo.getFeccreacion());</span>
+<span class="nc" id="L196">			prestamoActual.setCodigotransferencia(prestamo.getCodigotransferencia());</span>
+			
+<span class="nc" id="L198">			prestamoUpdated = skmPrestamosService.save(prestamoActual);</span>
+			
+<span class="nc" id="L200">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L201">			response.put(&quot;mensaje&quot;, &quot;Error al actualizar el prestamo en la base de datos&quot;);</span>
+<span class="nc" id="L202">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L203">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L204">		}</span>
+<span class="nc" id="L205">		response.put(&quot;mensaje&quot;, &quot;El prestamo ha sido actualizado con exito!&quot;);		</span>
+<span class="nc" id="L206">		response.put(&quot;Anuncio&quot;, prestamoUpdated);</span>
+<span class="nc" id="L207">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.CREATED);</span>
+	}
+
+	@DeleteMapping(&quot;/delete/{id}&quot;)
+	public ResponseEntity&lt;?&gt; delete(@PathVariable Long id) {
+<span class="nc" id="L212">		Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+		
+		try {
+<span class="nc" id="L215">			skmPrestamosService.delete(id);			</span>
+<span class="nc" id="L216">		}catch(DataAccessException e) {</span>
+<span class="nc" id="L217">			response.put(&quot;mensaje&quot;, &quot;Error al eliminar el prestamo de la base de datos&quot;);</span>
+<span class="nc" id="L218">			response.put(&quot;error&quot;, e.getMessage().concat(&quot;: &quot;).concat(e.getMostSpecificCause().getMessage()));</span>
+<span class="nc" id="L219">			return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.INTERNAL_SERVER_ERROR);</span>
+<span class="nc" id="L220">		}</span>
+<span class="nc" id="L221">		response.put(&quot;mensaje&quot;, &quot;El prestamo ha sido eliminado con exito!&quot;);		</span>
+<span class="nc" id="L222">		return new ResponseEntity&lt;Map&lt;String, Object&gt;&gt;(response,HttpStatus.OK);		</span>
+	}		
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

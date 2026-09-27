@@ -1,1 +1,5 @@
-D:\Desarrollo\Spring5\workspace\service-kiosko-general\src\test\java\com\tech\application\rest\ApplicationRestApplicationTests.java
+D:\Desarrollo\UPN\Calidad\UPN-service-proyecto\src\test\java\com\tech\application\rest\ApplicationRestApplicationTests.java
+D:\Desarrollo\UPN\Calidad\UPN-service-proyecto\src\test\java\com\tech\application\rest\models\services\serviceimpl\ArchivoServiceImplTest.java
+D:\Desarrollo\UPN\Calidad\UPN-service-proyecto\src\test\java\com\tech\application\rest\controllers\RepDocumentoPersonalControllerTest.java
+D:\Desarrollo\UPN\Calidad\UPN-service-proyecto\src\test\java\com\tech\application\rest\controllers\RepDocumentoPersonalControllerCtsTest.java
+D:\Desarrollo\UPN\Calidad\UPN-service-proyecto\src\test\java\com\tech\application\rest\controllers\RepDocumentoPersonalControllerQuintaTest.java
