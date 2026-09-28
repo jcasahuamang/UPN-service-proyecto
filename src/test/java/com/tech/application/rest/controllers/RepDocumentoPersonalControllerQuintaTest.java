@@ -29,6 +29,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.tech.application.rest.models.entity.RepCertificado5ta;
 import com.tech.application.rest.models.services.service.IArchivoService;
 import com.tech.application.rest.models.services.service.IRepDocumentoPersonalService;
+import static org.mockito.ArgumentMatchers.any;
+import com.tech.application.rest.security.service.AccesoDocumentoService;
 
 @ExtendWith(MockitoExtension.class)
 public class RepDocumentoPersonalControllerQuintaTest {
@@ -45,6 +47,7 @@ public class RepDocumentoPersonalControllerQuintaTest {
 
     @Mock private IRepDocumentoPersonalService servicio;   // simula la BD
     @Mock private IArchivoService archivoService;          // simula logo/firma
+    @Mock private AccesoDocumentoService acceso;    
     @InjectMocks private RepDocumentoPersonalController controller;
 
     private MockMvc mvc;
@@ -52,6 +55,8 @@ public class RepDocumentoPersonalControllerQuintaTest {
     @BeforeEach
     void setUp() {
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
+        // Por defecto el usuario autenticado es el dueño del documento
+        lenient().when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(true);        
     }
 
     // ---------- Validación del periodo (tipo de documento 5TA) ----------
@@ -129,4 +134,37 @@ public class RepDocumentoPersonalControllerQuintaTest {
         assertThat(new String(pdf, 0, 4)).isEqualTo("%PDF");
         verify(archivoService, times(2)).ObtieneRutaImagen(anyString(), eq("COMPLETA"), anyString());
     }
+
+    // ---------- INS-02: acceso a documentos de otro trabajador ----------
+
+    @Test
+    @DisplayName("INS-02: /certificadoqta/data responde 403 si los datos no son del usuario autenticado")
+    void quintaData_documentoAjeno_responde403() throws Exception {
+        when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+        mvc.perform(get(URL_DATA).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isForbidden());
+        verifyNoInteractions(servicio);
+    }
+
+    @Test
+    @DisplayName("INS-02: /certificadoqta/pdf responde 403 y no genera el PDF de otro trabajador")
+    void quintaPdf_documentoAjeno_responde403() throws Exception {
+        when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isForbidden());
+        verifyNoInteractions(servicio, archivoService);
+    }
+
+    @Test
+    @DisplayName("INS-02: el certificado se valida con empresa, personal, usuario y DNI de la URL")
+    void quintaData_validaAccesoConTodosLosDatos() throws Exception {
+        when(servicio.execProcCertificado5ta(EMP, ANO, MES, PER, USU, DNI))
+            .thenReturn(Collections.singletonList(new RepCertificado5ta()));
+
+        mvc.perform(get(URL_DATA).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+        verify(acceso).esDelUsuarioAutenticado(EMP, PER, USU, DNI);
+    }    
 }

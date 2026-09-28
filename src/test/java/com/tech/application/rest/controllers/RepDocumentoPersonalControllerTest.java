@@ -30,6 +30,9 @@ import com.tech.application.rest.models.entity.RepBoletaPago;
 import com.tech.application.rest.models.services.service.IArchivoService;
 import com.tech.application.rest.models.services.service.IRepDocumentoPersonalService;
 
+import static org.mockito.ArgumentMatchers.any;
+import com.tech.application.rest.security.service.AccesoDocumentoService;
+
 @ExtendWith(MockitoExtension.class)
 public class RepDocumentoPersonalControllerTest {
 
@@ -45,6 +48,7 @@ public class RepDocumentoPersonalControllerTest {
 
     @Mock private IRepDocumentoPersonalService servicio;   // simula la BD
     @Mock private IArchivoService archivoService;          // simula logo/firma
+    @Mock private AccesoDocumentoService acceso;    
     @InjectMocks private RepDocumentoPersonalController controller;
 
     private MockMvc mvc;
@@ -52,6 +56,8 @@ public class RepDocumentoPersonalControllerTest {
     @BeforeEach
     void setUp() {
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
+        // Por defecto el usuario autenticado es el dueño del documento
+        lenient().when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(true);        
     }
 
     // ---------- Paso 3: validación del periodo ----------
@@ -68,15 +74,25 @@ public class RepDocumentoPersonalControllerTest {
     }
 
     @Test
-    @DisplayName("INS-01: si la BD falla, /valida hoy devuelve 0 (permitir)")
-    void valida_siFallaLaBD_devuelveCero() throws Exception {
+    @DisplayName("INS-01: si la BD falla, /valida devuelve -1 y bloquea la generación")
+    void valida_siFallaLaBD_bloqueaLaGeneracion() throws Exception {
         when(servicio.ValidaVisualizacion(anyString(), anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString(), anyString()))
             .thenThrow(new DataAccessResourceFailureException("BD no disponible"));
 
         mvc.perform(get(URL_VALIDA).accept(MediaType.APPLICATION_JSON))
-           .andExpect(status().isOk())
-           .andExpect(content().string("0"));   // tras corregir INS-01 esto debe cambiar
+        .andExpect(status().isOk())
+        .andExpect(content().string("-1"));
+    }
+
+    @Test
+    @DisplayName("INS-01: si el procedimiento no devuelve resultado, /valida devuelve -1")
+    void valida_sinResultado_bloqueaLaGeneracion() throws Exception {
+        when(servicio.ValidaVisualizacion(EMP, ANO, MES, VER, PER, USU, DNI, "BOL")).thenReturn(null);
+
+        mvc.perform(get(URL_VALIDA).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(content().string("-1"));
     }
 
     // ---------- Paso 4: datos de la boleta ----------
@@ -141,4 +157,36 @@ public class RepDocumentoPersonalControllerTest {
         assertThat(new String(pdf, 0, 4)).isEqualTo("%PDF");   // cabecera de todo PDF
         verify(archivoService, times(2)).ObtieneRutaImagen(anyString(), eq("COMPLETA"), anyString());
     }
+
+        // ---------- INS-02: acceso a documentos de otro trabajador ----------
+
+        @Test
+        @DisplayName("INS-02: /valida responde 403 si los datos no son del usuario autenticado")
+        void valida_documentoAjeno_responde403() throws Exception {
+            when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+            mvc.perform(get(URL_VALIDA).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+            verifyNoInteractions(servicio);
+        }
+
+        @Test
+        @DisplayName("INS-02: /boletapago/data responde 403 si los datos no son del usuario autenticado")
+        void boletaData_documentoAjeno_responde403() throws Exception {
+            when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+            mvc.perform(get(URL_DATA).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+            verifyNoInteractions(servicio);
+        }
+
+        @Test
+        @DisplayName("INS-02: /boletapago/pdf responde 403 y no genera el PDF de otro trabajador")
+        void boletaPdf_documentoAjeno_responde403() throws Exception {
+            when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+            mvc.perform(get(URL_PDF))
+            .andExpect(status().isForbidden());
+            verifyNoInteractions(servicio, archivoService);
+        }    
 }
