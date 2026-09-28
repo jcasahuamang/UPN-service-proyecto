@@ -1,7 +1,6 @@
 package com.tech.application.rest.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -102,14 +101,15 @@ public class RepDocumentoPersonalControllerQuintaTest {
     // ---------- Generación del PDF del certificado de quinta ----------
 
     @Test
-    @DisplayName("INS-03: sin datos, el PDF de quinta falla con IndexOutOfBoundsException")
-    void quintaPdf_sinDatos_lanzaExcepcion() {
+    @DisplayName("INS-03: sin datos, /certificadoqta/pdf responde 404 y no genera el PDF")
+    void quintaPdf_sinDatos_responde404() throws Exception {
         when(servicio.execProcCertificado5ta(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString()))
             .thenReturn(Collections.emptyList());
 
-        Exception ex = assertThrows(Exception.class, () -> mvc.perform(get(URL_PDF)));
-        assertThat(ex).hasRootCauseInstanceOf(IndexOutOfBoundsException.class);
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isNotFound());
+        verifyNoInteractions(archivoService);
     }
 
     @Test

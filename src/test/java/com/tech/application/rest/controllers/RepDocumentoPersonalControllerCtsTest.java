@@ -1,7 +1,6 @@
 package com.tech.application.rest.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -100,13 +99,14 @@ public class RepDocumentoPersonalControllerCtsTest {
     // ---------- Generación del PDF de la boleta CTS ----------
 
     @Test
-    @DisplayName("INS-03: sin datos, el PDF CTS falla con IndexOutOfBoundsException")
-    void ctsPdf_sinDatos_lanzaExcepcion() {
+    @DisplayName("INS-03: sin datos, /boletacts/pdf responde 404 y no genera el PDF")
+    void ctsPdf_sinDatos_responde404() throws Exception {
         when(servicio.execProcBoletaCts(anyString(), anyString(), anyString(), anyString()))
             .thenReturn(Collections.emptyList());
 
-        Exception ex = assertThrows(Exception.class, () -> mvc.perform(get(URL_PDF)));
-        assertThat(ex).hasRootCauseInstanceOf(IndexOutOfBoundsException.class);
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isNotFound());
+        verifyNoInteractions(archivoService);
     }
 
     @Test

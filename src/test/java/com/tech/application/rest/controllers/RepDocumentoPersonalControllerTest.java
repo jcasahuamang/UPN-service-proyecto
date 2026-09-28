@@ -1,7 +1,6 @@
 package com.tech.application.rest.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -125,16 +124,38 @@ public class RepDocumentoPersonalControllerTest {
     // ---------- Paso 5: generación del PDF ----------
 
     @Test
-    @DisplayName("INS-03: sin datos, el PDF falla con IndexOutOfBoundsException")
-    void boletaPdf_sinDatos_lanzaExcepcion() {
+    @DisplayName("INS-03: sin datos, /boletapago/pdf responde 404 y no genera el PDF")
+    void boletaPdf_sinDatos_responde404() throws Exception {
         when(servicio.execProcBoletaPago(anyString(), anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString()))
             .thenReturn(Collections.emptyList());
 
-        Exception ex = assertThrows(Exception.class, () -> mvc.perform(get(URL_PDF)));
-        assertThat(ex).hasRootCauseInstanceOf(IndexOutOfBoundsException.class);
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isNotFound());
+        verifyNoInteractions(archivoService);
     }
 
+    @Test
+    @DisplayName("INS-03: si el procedimiento devuelve null, /boletapago/pdf responde 404")
+    void boletaPdf_resultadoNulo_responde404() throws Exception {
+        when(servicio.execProcBoletaPago(anyString(), anyString(), anyString(), anyString(),
+                anyString(), anyString(), anyString()))
+            .thenReturn(null);
+
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isNotFound());
+        verifyNoInteractions(archivoService);
+    }
+
+    @Test
+    @DisplayName("INS-02: /boletapago/pdf2 responde 403 si los datos no son del usuario autenticado")
+    void boletaPdf2_documentoAjeno_responde403() throws Exception {
+        when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+        mvc.perform(get("/personaldoc/boletapago/pdf2/0001/2026/08/001/P001/jperez/12345678"))
+        .andExpect(status().isForbidden());
+        verifyNoInteractions(servicio);
+    }
     @Test
     @DisplayName("CP-01: /boletapago/pdf genera un PDF válido")
     void boletaPdf_conDatos_generaPdf() throws Exception {

@@ -148,8 +148,13 @@ public ResponseEntity<Integer> ValidarVisualizacion(
 		String logoPath = "";
 		String firmaPath = "";
 
-		List<RepBoletaPago> reporte=  new ArrayList<>();
-		reporte = repDocumentoPersonalService.execProcBoletaPago(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad);
+		List<RepBoletaPago> reporte = repDocumentoPersonalService.execProcBoletaPago(codempresa, ano, mes, version,
+				codpersonal, codusuario, docidentidad);
+		if (sinDatos(reporte)) {
+			logger.warn("Sin datos para generar la boleta de pago (empresa={}, personal={}, periodo={}/{})",
+					codempresa, codpersonal, ano, mes);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 
 		logoPath = archivoService.ObtieneRutaImagen("LOGO","COMPLETA", reporte.get(0).getNUM_RUC_EMPRESA());
 		firmaPath = archivoService.ObtieneRutaImagen("FIRMA","COMPLETA", reporte.get(0).getNUM_RUC_EMPRESA());
@@ -192,6 +197,9 @@ public ResponseEntity<Integer> ValidarVisualizacion(
 			@PathVariable String mes,@PathVariable String version,@PathVariable String codpersonal,
             @PathVariable String codusuario,@PathVariable String docidentidad) throws IOException{
 
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
 //		MaeCompania compania= null;
 		List<RepBoletaPago> reporte=  new ArrayList<>();;
 		Map<String, Object> response = new HashMap<>();		
@@ -340,8 +348,13 @@ public ResponseEntity<Integer> ValidarVisualizacion(
 		headers.setContentDispositionFormData("certificado5ta","certificado5ta.pdf");
 
 
-		List<RepCertificado5ta> reporte=  new ArrayList<>();
-		reporte = repDocumentoPersonalService.execProcCertificado5ta(codempresa,ano,mes,codpersonal,codusuario,docidentidad);
+		List<RepCertificado5ta> reporte = repDocumentoPersonalService.execProcCertificado5ta(codempresa, ano, mes,
+				codpersonal, codusuario, docidentidad);
+		if (sinDatos(reporte)) {
+			logger.warn("Sin datos para generar el certificado de quinta (empresa={}, personal={}, año={})",
+					codempresa, codpersonal, ano);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 			
 		logoPath = archivoService.ObtieneRutaImagen("LOGO","COMPLETA", reporte.get(0).getC_ruc_empresa());
 		firmaPath = archivoService.ObtieneRutaImagen("FIRMA","COMPLETA", reporte.get(0).getC_ruc_empresa());
@@ -402,9 +415,13 @@ public ResponseEntity<Integer> ValidarVisualizacion(
 		headers.setContentDispositionFormData("boletacts","boletacts.pdf");
 
 				
-		List<RepBoletaCts> reporte=  new ArrayList<>();
-		
-		reporte = repDocumentoPersonalService.execProcBoletaCts(codempresa,ano,mes,codpersonal);	
+		List<RepBoletaCts> reporte = repDocumentoPersonalService.execProcBoletaCts(codempresa, ano, mes, codpersonal);
+		if (sinDatos(reporte)) {
+			logger.warn("Sin datos para generar la boleta CTS (empresa={}, personal={}, periodo={}/{})",
+					codempresa, codpersonal, ano, mes);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+
 
 		logoPath = archivoService.ObtieneRutaImagen("LOGO","COMPLETA", reporte.get(0).getNum_ruc_empresa());
 		firmaPath = archivoService.ObtieneRutaImagen("FIRMA","COMPLETA", reporte.get(0).getNum_ruc_empresa());
@@ -420,4 +437,8 @@ public ResponseEntity<Integer> ValidarVisualizacion(
 		}		
 
 
+		/** INS-03: indica si el procedimiento no devolvió datos para generar el documento. */
+		private static boolean sinDatos(List<?> reporte) {
+			return reporte == null || reporte.isEmpty();
+		}
 }
