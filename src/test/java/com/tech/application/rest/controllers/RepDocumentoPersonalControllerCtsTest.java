@@ -30,6 +30,9 @@ import com.tech.application.rest.models.entity.RepBoletaCts;
 import com.tech.application.rest.models.services.service.IArchivoService;
 import com.tech.application.rest.models.services.service.IRepDocumentoPersonalService;
 
+import static org.mockito.ArgumentMatchers.any;
+import com.tech.application.rest.security.service.AccesoDocumentoService;
+
 @ExtendWith(MockitoExtension.class)
 public class RepDocumentoPersonalControllerCtsTest {
 
@@ -43,6 +46,7 @@ public class RepDocumentoPersonalControllerCtsTest {
 
     @Mock private IRepDocumentoPersonalService servicio;   // simula la BD
     @Mock private IArchivoService archivoService;          // simula logo/firma
+    @Mock private AccesoDocumentoService acceso;    
     @InjectMocks private RepDocumentoPersonalController controller;
 
     private MockMvc mvc;
@@ -50,6 +54,8 @@ public class RepDocumentoPersonalControllerCtsTest {
     @BeforeEach
     void setUp() {
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
+        // Por defecto el usuario autenticado es el dueño del documento
+        lenient().when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(true);        
     }
 
     // ---------- Validación del periodo (tipo de documento CTS) ----------
@@ -125,4 +131,38 @@ public class RepDocumentoPersonalControllerCtsTest {
         assertThat(new String(pdf, 0, 4)).isEqualTo("%PDF");
         verify(archivoService, times(2)).ObtieneRutaImagen(anyString(), eq("COMPLETA"), anyString());
     }
+
+    // ---------- INS-02: acceso a documentos de otro trabajador ----------
+
+    @Test
+    @DisplayName("INS-02: /boletacts/data responde 403 si los datos no son del usuario autenticado")
+    void ctsData_documentoAjeno_responde403() throws Exception {
+        when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+        mvc.perform(get(URL_DATA).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isForbidden());
+        verifyNoInteractions(servicio);
+    }
+
+    @Test
+    @DisplayName("INS-02: /boletacts/pdf responde 403 y no genera el PDF de otro trabajador")
+    void ctsPdf_documentoAjeno_responde403() throws Exception {
+        when(acceso.esDelUsuarioAutenticado(any(), any(), any(), any())).thenReturn(false);
+
+        mvc.perform(get(URL_PDF))
+        .andExpect(status().isForbidden());
+        verifyNoInteractions(servicio, archivoService);
+    }
+
+    @Test
+    @DisplayName("INS-02: la boleta CTS se valida con la empresa y el código de personal de la URL")
+    void ctsData_validaAccesoConEmpresaYPersonal() throws Exception {
+        when(servicio.execProcBoletaCts(EMP, ANO, MES, PER))
+            .thenReturn(Collections.singletonList(new RepBoletaCts()));
+
+        mvc.perform(get(URL_DATA).accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+        verify(acceso).esDelUsuarioAutenticado(EMP, PER, null, null);   // CTS no recibe usuario ni DNI
+    }
+    
 }

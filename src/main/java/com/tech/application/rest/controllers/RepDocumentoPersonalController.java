@@ -39,45 +39,60 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import com.tech.application.rest.security.service.AccesoDocumentoService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/personaldoc")
 public class RepDocumentoPersonalController {
+	private static final Logger logger = LoggerFactory.getLogger(RepDocumentoPersonalController.class);
 
+	/** Código para el frontend: no se pudo validar el periodo; no debe generarse el documento. */
+	public static final int VALIDACION_ERROR = -1;
 
 	@Autowired
     private IRepDocumentoPersonalService repDocumentoPersonalService;
-	
+
+	@Autowired
+	private AccesoDocumentoService accesoDocumentoService;
+
 	@Value("${resources.images}")
 	private String rutaImagenes;
 
 	@Autowired
     private IArchivoService archivoService;
 
-	@GetMapping("/valida/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}/{tipdocumento}")
-	public Integer ValidarVisualizacion(
-		@PathVariable String codempresa,
-		@PathVariable String ano,
-		@PathVariable String mes,
-		@PathVariable String version,
-		@PathVariable String codpersonal,
-		@PathVariable String codusuario,
-		@PathVariable String docidentidad,
-		@PathVariable String tipdocumento) {
+@GetMapping("/valida/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}/{tipdocumento}")
+public ResponseEntity<Integer> ValidarVisualizacion(
+    @PathVariable String codempresa,
+    @PathVariable String ano,
+    @PathVariable String mes,
+    @PathVariable String version,
+    @PathVariable String codpersonal,
+    @PathVariable String codusuario,
+    @PathVariable String docidentidad,
+    @PathVariable String tipdocumento) {
 
-
-        Integer retorno = 0;
-
-		try {
-			retorno = repDocumentoPersonalService.ValidaVisualizacion(codempresa,ano,mes,version,codpersonal,codusuario,docidentidad,tipdocumento);
-
-		} catch(DataAccessException e) {
-			return 0;
-			
-		}
-
-		return retorno;		
-	}
+    if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+    try {
+        Integer retorno = repDocumentoPersonalService.ValidaVisualizacion(codempresa, ano, mes, version,
+                codpersonal, codusuario, docidentidad, tipdocumento);
+        if (retorno == null) {
+            logger.warn("La validación no devolvió resultado (empresa={}, personal={}, documento={})",
+                    codempresa, codpersonal, tipdocumento);
+            return ResponseEntity.ok(VALIDACION_ERROR);
+        }
+        return ResponseEntity.ok(retorno);
+    } catch (DataAccessException e) {
+        logger.error("Error de base de datos al validar la visualización del documento {}", tipdocumento, e);
+        return ResponseEntity.ok(VALIDACION_ERROR);
+    }
+}
 	
 
 
@@ -92,6 +107,10 @@ public class RepDocumentoPersonalController {
 		@PathVariable String codusuario,
 		@PathVariable String docidentidad){		
 				
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}			
+
 		List<RepBoletaPago> reporte= null;
 		Map<String, Object> response = new HashMap<>();		
 		
@@ -118,6 +137,10 @@ public class RepDocumentoPersonalController {
 		@PathVariable String codusuario,
 		@PathVariable String docidentidad) throws JRException,DataAccessException, FileNotFoundException{
 		
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_PDF);		
 		headers.setContentDispositionFormData("boletapago","boletapago.pdf");
@@ -275,7 +298,11 @@ public class RepDocumentoPersonalController {
 	@PathVariable String codpersonal,
 	@PathVariable String codusuario,
 	@PathVariable String docidentidad){
-				
+		
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+
 		List<RepCertificado5ta> reporte= null;
 		Map<String, Object> response = new HashMap<>();		
 		
@@ -300,6 +327,10 @@ public class RepDocumentoPersonalController {
 	@PathVariable String codpersonal,
 	@PathVariable String codusuario,
 	@PathVariable String docidentidad) throws JRException,DataAccessException, FileNotFoundException{
+
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, codusuario, docidentidad)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
 
 		String logoPath = "";
 		String firmaPath = "";
@@ -332,6 +363,10 @@ public class RepDocumentoPersonalController {
 	@PathVariable String mes,
 	@PathVariable String codpersonal){
 		
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, null,null)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+
 		List<RepBoletaCts> reporte= null;
 		Map<String, Object> response = new HashMap<>();		
 		
@@ -354,6 +389,10 @@ public class RepDocumentoPersonalController {
 	@PathVariable String mes,
 	@PathVariable String codpersonal) throws JRException,DataAccessException, FileNotFoundException{
 
+		if (!accesoDocumentoService.esDelUsuarioAutenticado(codempresa, codpersonal, null,null)) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+				
 		String logoPath = "";
 		String firmaPath = "";
 
