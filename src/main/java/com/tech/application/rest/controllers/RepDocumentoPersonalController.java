@@ -66,7 +66,7 @@ public class RepDocumentoPersonalController {
     private IArchivoService archivoService;
 
 @GetMapping("/valida/{codempresa}/{ano}/{mes}/{version}/{codpersonal}/{codusuario}/{docidentidad}/{tipdocumento}")
-public ResponseEntity<Integer> ValidarVisualizacion(
+public ResponseEntity<Integer> validarVisualizacion(
     @PathVariable String codempresa,
     @PathVariable String ano,
     @PathVariable String mes,
